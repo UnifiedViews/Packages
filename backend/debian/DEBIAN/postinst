@@ -1,0 +1,99 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+configure)
+  mkdir -p /var/lib/unifiedviews
+  chown tomcat7:tomcat7 /var/lib/unifiedviews
+
+  mkdir -p /var/log/unifiedviews/backend
+  chown tomcat7:tomcat7 /var/log/unifiedviews /var/log/unifiedviews/backend
+
+  mkdir -p /var/lib/unifiedviews/backend/working
+  chown tomcat7:tomcat7 /var/lib/unifiedviews/backend /var/lib/unifiedviews/backend/working
+
+  mkdir -p /var/lib/unifiedviews/target/dpu
+  chown tomcat7:tomcat7 /var/lib/unifiedviews/target /var/lib/unifiedviews/target/dpu
+
+  mkdir -p /var/lib/unifiedviews/target/lib/backend
+  chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib /var/lib/unifiedviews/target/lib/backend
+
+  mkdir -p ~tomcat7/.odcs
+  ln -fs /etc/unifiedviews/backend-config.properties ~tomcat7/.odcs/config.properties
+
+  mkdir -p ~tomcat7/.eclipse
+  chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
+
+  virtetc="/etc/virtuoso-opensource/"
+  virtbdini="$virtetc/bd.ini"
+  virtisql="/usr/bin/isql-vt"
+
+  # check if bd ini exists (a file with login credentials)
+  if [ -e $virtbdini ]; then
+    username=`cat $virtbdini | grep "^Username=" | cut -d "=" -f 2-`
+    password=`cat $virtbdini | grep "^Password=" | cut -d "=" -f 2-`
+    address=`cat $virtbdini  | grep "^Address="  | cut -d "=" -f 2-`
+  fi
+
+  # if we do not have the values we assume dba/dba and other well know values
+  if [ "$username" = "" ]; then
+    username="dba"
+  fi
+  if [ "$password" = "" ]; then
+    password="dba"
+  fi
+  if [ "$address" = "" ]; then
+    address="localhost:1111"
+  fi
+
+  address_host="${address%:*}"
+  case "$address" in
+  *':'*)
+    address_port="${address##*:}"
+    ;;
+  *)
+    address_port=1111
+    ;;
+  esac
+
+  $virtisql -U $username -P $password -H $address_host -S $address_port < \
+    /usr/share/unifiedviews/virtuoso/schema.sql > /var/log/unifiedviews/sql-install.log 2>&1
+  $virtisql -U $username -P $password -H $address_host -S $address_port < \
+    /usr/share/unifiedviews/virtuoso/sequences.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+  $virtisql -U $username -P $password -H $address_host -S $address_port < \
+    /usr/share/unifiedviews/virtuoso/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+
+  #update backend config
+  sed --in-place \
+    -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
+    -e "s/database.sql.port = .*/database.sql.port = $address_port/" \
+    -e "s/database.sql.user = .*/database.sql.user = $username/" \
+    -e "s/database.sql.password = .*/database.sql.password = $password/" \
+    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
+    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
+    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
+    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
+    /etc/unifiedviews/backend-config.properties
+
+  #update frontendbackend config
+  sed --in-place \
+    -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
+    -e "s/database.sql.port = .*/database.sql.port = $address_port/" \
+    -e "s/database.sql.user = .*/database.sql.user = $username/" \
+    -e "s/database.sql.password = .*/database.sql.password = $password/" \
+    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
+    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
+    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
+    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
+    /etc/unifiedviews/frontend-config.properties
+
+  if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+    invoke-rc.d unifiedviews-backend start || true
+  else
+    /etc/init.d/unifiedviews-backend start || true
+  fi
+
+  ;;
+esac
+

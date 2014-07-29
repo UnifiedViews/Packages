@@ -1,0 +1,11 @@
+Package: unifiedviews-webapp
+Source: unifiedviews-webapp
+Version: 1.0.0
+Section: java
+Priority: extra
+Architecture: all
+Maintainer: Bernard Buri <b.buri@semantic-web.at>
+Homepage: https://github.com/UnifiedViews/Core
+Depends: libc6, unifiedviews-backend, tomcat7, java7-runtime-headless | java7-runtime
+Replaces: lodms
+Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.
