@@ -1,5 +1,5 @@
 #!/bin/sh
-
+. /usr/share/debconf/confmodule
 set -e
 
 case "$1" in
@@ -21,6 +21,8 @@ configure)
 
   mkdir -p ~tomcat7/.odcs
   ln -fs /etc/unifiedviews/backend-config.properties ~tomcat7/.odcs/config.properties
+
+  ln -fs /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
 
   mkdir -p ~tomcat7/.eclipse
   chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
@@ -64,12 +66,29 @@ configure)
   $virtisql -U $username -P $password -H $address_host -S $address_port < \
     /usr/share/unifiedviews/virtuoso/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
 
+  db_get backend/mysql_root
+  ROOT_PW=$RET
+
+  db_get backend/mysql_dba_user
+  DBA_USER=$RET
+
+  db_get backend/mysql_dba_password
+  DBA_PASS=$RET
+
+
+  echo "create database unifiedviews;" | mysql --password $ROOT_PW
+  echo "create user $DBA_USER identitfied by $DBA_PASS;" | mysql --password $ROOT_PW
+  echo "grant ALL on unfiedviews.* to $DBA_USER;" | mysql --password $ROOT_PW
+  mysql -u $DBA_USER --password $DBA_PASS < \
+	/usr/share/unifiedviews/mysql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+  mysql -u $DBA_USER --password $DBA_PASS < \
+	/usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
   #update backend config
   sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
-    -e "s/database.sql.port = .*/database.sql.port = $address_port/" \
-    -e "s/database.sql.user = .*/database.sql.user = $username/" \
-    -e "s/database.sql.password = .*/database.sql.password = $password/" \
+    -e "s/database.sql.port = .*/database.sql.port = 3306/" \
+    -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
+    -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
     -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
     -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
     -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
@@ -79,9 +98,9 @@ configure)
   #update frontendbackend config
   sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
-    -e "s/database.sql.port = .*/database.sql.port = $address_port/" \
-    -e "s/database.sql.user = .*/database.sql.user = $username/" \
-    -e "s/database.sql.password = .*/database.sql.password = $password/" \
+    -e "s/database.sql.port = .*/database.sql.port = 3306/" \
+    -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
+    -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
     -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
     -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
     -e "s/database.rdf.user = .*/database.rdf.user = $username/" \

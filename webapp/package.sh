@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="1.0.0"
+VERSION="1.3.0-1"
 if  [ -f /etc/debian_version ] ; then
     dpkg-deb -b debian unifiedviews-webapp_"$VERSION"_all.deb
     exit 0

@@ -1,0 +1,14 @@
+Template: backend/mysql_root
+Type: password
+Default: admin
+Description: MySQL root password
+
+Template: backend/mysql_dba_user
+Type: string
+Default: dba
+Description: MySQL user for unifiedviews
+
+Template: backend/mysql_dba_password
+Type: password
+Default: dba
+Description: MySQL user password
