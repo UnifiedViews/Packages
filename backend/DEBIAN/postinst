@@ -23,6 +23,9 @@ configure)
 
   mkdir -p ~tomcat7/.eclipse
   chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
+  
+  chown tomcat:tomcat7 /usr/share/unifiedviews
+  chmod w+g /usr/share/unifiedviews
 
   virtetc="/etc/virtuoso-opensource/"
   virtbdini="$virtetc/bd.ini"
@@ -94,19 +97,6 @@ configure)
     -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
     -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
     /etc/unifiedviews/backend-config.properties
-
-  #update frontendbackend config
-  sed --in-place \
-    -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
-    -e "s/database.sql.port = .*/database.sql.port = 3306/" \
-    -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
-    -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
-    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
-    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
-    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
-    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
-    /etc/unifiedviews/frontend-config.properties
-  ln -fs /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
 
   if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
     invoke-rc.d unifiedviews-backend start || true
