@@ -18,9 +18,6 @@ configure)
   mkdir -p /var/lib/unifiedviews/target/lib/backend
   chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib /var/lib/unifiedviews/target/lib/backend
 
-  mkdir -p ~tomcat7/.odcs
-  ln -fs /etc/unifiedviews/backend-config.properties ~tomcat7/.odcs/config.properties
-
   mkdir -p ~tomcat7/.eclipse
   chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
   
