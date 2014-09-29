@@ -82,7 +82,8 @@ configure)
 	/usr/share/unifiedviews/mysql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
   mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
 	/usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-
+  mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+      /usr/share/unfiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-instal.log 2>&1
  #update backend config
   sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
