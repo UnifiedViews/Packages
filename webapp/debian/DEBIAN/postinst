@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ -e "/etc/unifiedviews/backend-config.properties" ]; then
+    mv /usr/share/unifiedviews/webapp/WEB-INF/config.properites /usr/share/unifiedviews/webapp/WEB-INF/config.properties.save
+    ln -s /etc/unifiedviews/backend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
+fi

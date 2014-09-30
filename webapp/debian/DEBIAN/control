@@ -6,6 +6,6 @@ Priority: extra
 Architecture: all
 Maintainer: Markus Scharitzer <m.scharitzer@semantic-web.at>
 Homepage: https://github.com/UnifiedViews/Core
-Depends: libc6, unifiedviews-backend, tomcat7, java7-runtime-headless | java7-runtime
+Depends: libc6, unifiedviews-backend, tomcat7, java7-runtime-headless | java7-runtime, unifiedviews-core-plugins
 Replaces: lodms
 Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.
