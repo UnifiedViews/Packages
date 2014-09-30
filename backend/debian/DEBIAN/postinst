@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/sh 
 . /usr/share/debconf/confmodule
-set -e
 
 case "$1" in
 configure)
@@ -19,14 +18,12 @@ configure)
   mkdir -p /var/lib/unifiedviews/target/lib/backend
   chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib /var/lib/unifiedviews/target/lib/backend
 
-  mkdir -p ~tomcat7/.odcs
-  ln -fs /etc/unifiedviews/backend-config.properties ~tomcat7/.odcs/config.properties
-
-  ln -fs /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
-
   mkdir -p ~tomcat7/.eclipse
   chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
-
+  
+  chown tomcat7:tomcat7 /usr/share/unifiedviews
+  chmod g+w /usr/share/unifiedviews
+  chown tomcat7:tomcat7 /usr/sbin/run_unifiedviews_backend
   virtetc="/etc/virtuoso-opensource/"
   virtbdini="$virtetc/bd.ini"
   virtisql="/usr/bin/isql-vt"
@@ -66,6 +63,7 @@ configure)
   $virtisql -U $username -P $password -H $address_host -S $address_port < \
     /usr/share/unifiedviews/virtuoso/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
 
+	
   db_get backend/mysql_root
   ROOT_PW=$RET
 
@@ -76,14 +74,17 @@ configure)
   DBA_PASS=$RET
 
 
-  echo "create database unifiedviews;" | mysql --password $ROOT_PW
-  echo "create user $DBA_USER identitfied by $DBA_PASS;" | mysql --password $ROOT_PW
-  echo "grant ALL on unfiedviews.* to $DBA_USER;" | mysql --password $ROOT_PW
-  mysql -u $DBA_USER --password $DBA_PASS < \
+  echo "create database if not exists unifiedviews;" | mysql --password=$ROOT_PW
+  echo "drop user $DBA_USER;" | mysql --password=$ROOT_PW || true
+  echo "create user $DBA_USER identified by '$DBA_PASS';" | mysql --password=$ROOT_PW
+  echo "grant ALL on unifiedviews.* to $DBA_USER;" | mysql --password=$ROOT_PW
+  mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
 	/usr/share/unifiedviews/mysql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-  mysql -u $DBA_USER --password $DBA_PASS < \
+  mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
 	/usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-  #update backend config
+  mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+      /usr/share/unifiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-instal.log 2>&1
+ #update backend config
   sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
     -e "s/database.sql.port = .*/database.sql.port = 3306/" \
@@ -94,18 +95,6 @@ configure)
     -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
     -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
     /etc/unifiedviews/backend-config.properties
-
-  #update frontendbackend config
-  sed --in-place \
-    -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
-    -e "s/database.sql.port = .*/database.sql.port = 3306/" \
-    -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
-    -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
-    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
-    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
-    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
-    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
-    /etc/unifiedviews/frontend-config.properties
 
   if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
     invoke-rc.d unifiedviews-backend start || true
