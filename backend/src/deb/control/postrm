@@ -1,17 +1,1 @@
 #!/bin/sh
-
-set -e
-
-case "$1" in
-remove)
-  rm -rf /var/lib/unifiedviews
-  rm -rf /var/log/unifiedviews
-  ;;
-purge)
-  rm -rf /var/lib/unifiedviews
-  rm -rf /var/log/unifiedviews
-
-  update-rc.d unifiedviews-backend remove > /dev/null || true
-  ;;
-esac
-
