@@ -44,8 +44,8 @@ case "$1" in
  
     purge)
     # logs
-    if [ -d /var/log/unifiedviews/ ] ; then 
-	    rm -rf /var/log/unifiedviews/
+    if [ -d /var/log/unifiedviews/backend ] ; then 
+	    rm -rf /var/log/unifiedviews/backend
 	fi
     
     if [ -e /var/log/unifiedviews-backend-initd.log ] ; then

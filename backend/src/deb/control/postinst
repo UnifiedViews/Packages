@@ -88,8 +88,9 @@ db_configure() {
 }
 
 prepare_dir() { 
-    mkdir -p /var/log/unifiedviews/
-    chown tomcat7:tomcat7 /var/log/unifiedviews/
+
+    mkdir -p /var/log/unifiedviews/backend
+    chown tomcat7:tomcat7 /var/log/unifiedviews/backend
     
     mkdir -p /usr/share/unifiedviews
     chown tomcat7:tomcat7 /usr/share/unifiedviews
