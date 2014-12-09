@@ -19,19 +19,7 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-
-db_up() {
-  #Check if mysql is started
-  /etc/init.d/mysql status > /dev/null || /etc/init.d/mysql start >/dev/null 2>&1
-
-  echo -n "INFO: Waiting for mysql to be up..."
-  CPT=0
-  TIMEOUT=60
-  #TODO add waiting 
-  echo " Done"
-}
-
-db_configure() {
+db_creadentials(){
     db_get backend/mysql_root
     ROOT_PW=$RET
 
@@ -40,8 +28,41 @@ db_configure() {
 
     db_get backend/mysql_dba_password
     DBA_PASS=$RET
-       
-   
+
+}
+
+
+db_up() {
+  #Check if mysql is started
+  service mysql status > /dev/null || service mysql start >/dev/null 2>&1
+
+  echo -n "INFO: Waiting for mysql to be up..."
+
+  CPT=0
+  TIMEOUT=60
+  while [ 1 ]
+  do
+    mysql --password=$ROOT_PW -e ' SELECT "isRunning" '>/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        break
+    fi
+
+    echo -n "."
+    sleep 1
+    CPT=$((${CPT}+1))
+    if [ ${CPT} -eq ${TIMEOUT} ]
+    then
+      echo -e "\nERROR: Connection to Mysql has not been established before timeout. Exiting"
+      exit 1
+    fi
+  done
+
+  echo " Done"
+}
+
+
+
+db_configure() {
     # add user and add schema and data
     echo "create database if not exists unifiedviews;" | mysql --password=$ROOT_PW
     echo "drop user $DBA_USER;" | mysql --password=$ROOT_PW || true
@@ -115,6 +136,7 @@ service_backend_start() {
 
 case "$1" in
   configure)
+    db_creadentials
     db_up
     prepare_dir
     db_configure
