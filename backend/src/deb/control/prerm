@@ -19,7 +19,10 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-  service unifiedviews-backend stop
+    if [ -x "/etc/init.d/unifiedviews-backend" ]; then
+        invoke-rc.d unifiedviews-backend stop || true
+    fi    
+    
     
     ;;
 
