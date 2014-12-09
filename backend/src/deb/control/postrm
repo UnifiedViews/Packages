@@ -48,7 +48,7 @@ case "$1" in
 	    rm -rf /var/log/unifiedviews/
 	fi
     
-    if [ -h /var/log/unifiedviews-backend-initd.log] ; then
+    if [ -e /var/log/unifiedviews-backend-initd.log ] ; then
         rm -f  /var/log/unifiedviews-backend-initd.log
     fi
     ;;
