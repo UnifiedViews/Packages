@@ -20,54 +20,37 @@ set -e
 
 case "$1" in
 
-    purge|abort-install|disappear)
-    # backend jar and libs
+    remove|abort-install|disappear)
+   # backend jar and libs
 	if [ -d /usr/share/unifiedviews ] ; then 
-	    rm -r /usr/share/unifiedviews
+	    rm -rf /usr/share/unifiedviews
 	fi
 
-    # configuration files
-	if [ -d /etc/unifiedviews ] ; then 
-	    rm -r /etc/unifiedviews
-	fi
-	
     # init script
 	if [ -h /etc/init.d/unifiedviews_backend ] ; then 
-	    rm /etc/init.d/unifiedviews_backend
+	    rm -f /etc/init.d/unifiedviews_backend
 	fi
 	
     # init script
 	if [ -h /usr/sbin/run_unifiedviews_backend ] ; then 
-	    rm /usr/sbin/run_unifiedviews_backend
+	    rm -f /usr/sbin/run_unifiedviews_backend
 	fi
     
     # working dir
-    if [ -h /var/lib/unifiedviews/ ] ; then 
-	    rm -r /var/lib/unifiedviews/
+    if [ -d /var/lib/unifiedviews/ ] ; then 
+	    rm -rf /var/lib/unifiedviews/
 	fi
-     
     ;;
-    remove)
-    # backend jar and libs
-	if [ -d /usr/share/unifiedviews ] ; then 
-	    rm -r /usr/share/unifiedviews
-	fi
-
-    # init script
-	if [ -h /etc/init.d/unifiedviews_backend ] ; then 
-	    rm /etc/init.d/unifiedviews_backend
-	fi
-	
-    # init script
-	if [ -h /usr/sbin/run_unifiedviews_backend ] ; then 
-	    rm /usr/sbin/run_unifiedviews_backend
+ 
+    purge)
+    # logs
+    if [ -d /var/log/unifiedviews/ ] ; then 
+	    rm -rf /var/log/unifiedviews/
 	fi
     
-    # working dir
-    if [ -h /var/lib/unifiedviews/ ] ; then 
-	    rm -r /var/lib/unifiedviews/
-	fi
-     
+    if [ -h /var/log/unifiedviews-backend-initd.log] ; then
+        rm -f  /var/log/unifiedviews-backend-initd.log
+    fi
     ;;
     
 
