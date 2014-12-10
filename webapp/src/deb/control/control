@@ -6,7 +6,6 @@ Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
-Depends: tomcat7, java7-runtime-headless | java7-runtime
-Suggests: unifiedviews-backend
+Depends: tomcat7, java7-runtime-headless | java7-runtime, unifiedviews-backend
 Replaces: lodms
 Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.
