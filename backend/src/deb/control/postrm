@@ -53,6 +53,7 @@ case "$1" in
     fi
     ;;
     
+    # TODO drop database from mysql
 
     upgrade|failed-upgrade|abort-upgrade)
 
