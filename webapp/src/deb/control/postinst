@@ -22,11 +22,7 @@ case "$1" in
     configure)
     
     if [ -e "/etc/unifiedviews/frontend-config.properties" ]; then
-        if  [ -e "/usr/share/unifiedviews/webapp/WEB-INF/config.properties" ]; then
-            mv /usr/share/unifiedviews/webapp/WEB-INF/config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties.save
-        fi
-        
-        ln -s /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
+       ln -s /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
     fi
 
     
@@ -34,7 +30,8 @@ case "$1" in
     mkdir -p /var/log/unifiedviews/frontend
     chown tomcat7:tomcat7 /var/log/unifiedviews/frontend
     mkdir -p /usr/share/unifiedviews/webapp
-    chown tomcat7:tomcat7 /usr/share/unifiedviews/webapp
+    chown tomcat7:tomcat7 -R /usr/share/unifiedviews/webapp
+    
     
     service tomcat7 restart
 
