@@ -20,6 +20,9 @@ set -e
 case "$1" in
   remove|upgrade|deconfigure)
     service tomcat7 stop
+    if [ -h /usr/share/unifiedviews/webapp/WEB-INF/config.properties ] ; then
+        unlink /usr/share/unifiedviews/webapp/WEB-INF/config.properties
+    fi
     
     ;;
 
