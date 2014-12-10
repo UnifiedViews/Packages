@@ -48,6 +48,7 @@
                             <artifactItems>
                                 <includes>**/*.java</includes>
                                 <excludes>**/*.properties</excludes>
+                                 <excludeTransitive>false</excludeTransitive>
                                 <outputDirectory>${project.build.directory}/wars</outputDirectory>
                                 <overWriteReleases>false</overWriteReleases>
                                 <overWriteSnapshots>true</overWriteSnapshots>
@@ -90,6 +91,15 @@
                                         <prefix>/usr/share/unifiedviews/webapp</prefix>
                                     </mapper>
                                 </data>
+                                 <data>
+                                    <src>${basedir}/src/deb/etc</src>
+                                    <type>directory</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc</prefix>
+                                    </mapper>
+                                </data>
+                                                      
                             </dataSet>
                         </configuration>
                     </execution>
@@ -97,6 +107,7 @@
             </plugin>
         </plugins>
     </build>
+  
 </project>
 
 
