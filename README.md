@@ -30,8 +30,8 @@ that creates files .deb in target/
 The known issues:
 - you have to set java 7 in tomcat. 
 ~~~bash
-# add property /etc/default/tomcat7
-# JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+# add line into /etc/default/tomcat7
+# JAVA_HOME= {location of your JAVA 7 HOME}
 ~~~
 
 - to add backup configuration before an update installation of packages
