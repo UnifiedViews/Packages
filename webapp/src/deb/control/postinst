@@ -17,23 +17,51 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+. /usr/share/debconf/confmodule
 
-case "$1" in
-    configure)
+db_creadentials(){
+    db_get frontend/mysql_dba_user
+    DBA_USER=$RET
+
+    db_get frontend/mysql_dba_password
+    DBA_PASS=$RET
     
-    if [ -e "/etc/unifiedviews/frontend-config.properties" ]; then
+    #update frontend config
+    sed --in-place \
+    -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
+    -e "s/database.sql.port = .*/database.sql.port = 3306/" \
+    -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
+    -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
+    /etc/unifiedviews/frontend-config.properties
+    
+
+}
+
+
+prepare_dir() {
+   if [ -e "/etc/unifiedviews/frontend-config.properties" ]; then
        ln -s /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
     fi
 
-    
     # todo /var/lib/unifiedviews/target/dpu
     mkdir -p /var/log/unifiedviews/frontend
     chown tomcat7:tomcat7 /var/log/unifiedviews/frontend
     mkdir -p /usr/share/unifiedviews/webapp
     chown tomcat7:tomcat7 -R /usr/share/unifiedviews/webapp
-    
-    
-    service tomcat7 restart
+}
+
+restart_tomcat() {
+    if [ -e /etc/init.d/tomcat7 ] ; then 
+        service tomcat7 restart 
+    fi 
+}
+
+case "$1" in
+    configure)
+    db_creadentials
+    prepare_dir
+    restart_tomcat
+    db_stop
 
     ;;
 

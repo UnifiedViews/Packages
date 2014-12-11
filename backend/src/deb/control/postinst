@@ -31,6 +31,24 @@ db_creadentials(){
 
 }
 
+set_java() {
+ JAVA_VERSION=`java -version 2>&1 | grep "java version" | awk '{print $3}' | tr -d \" | awk '{split($0, array, ".")} END{print array[2]}'`
+ echo -n "check java version"
+ if [ ! $JAVA_VERSION -eq 7 ]; then
+     JAVA_NAME=`update-java-alternatives  -l | grep 7 | cut -d' ' -f1`
+     if [ -n $JAVA_NAME ] ; then
+         /usr/sbin/update-java-alternatives --jre-headless --set $JAVA_NAME
+     echo " - Java version is set to 1.7"
+     else
+        echo " ERROR: java 7 is not installed"
+     fi
+
+ else
+    echo  " - ok"
+ fi
+
+}
+
 
 db_up() {
   #Check if mysql is started
@@ -80,10 +98,6 @@ db_configure() {
     -e "s/database.sql.port = .*/database.sql.port = 3306/" \
     -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
     -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
-    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
-    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
-    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
-    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
     /etc/unifiedviews/backend-config.properties
 }
 
@@ -139,6 +153,7 @@ case "$1" in
   configure)
     db_creadentials
     db_up
+    set_java
     prepare_dir
     db_configure
     service_backend_start

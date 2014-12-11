@@ -25,7 +25,10 @@ case "$1" in
         rm -rf /var/lib/tomcat7/webapps/unifiedviews
 	fi
     
-    service tomcat7 start
+    if [ -e /etc/init.d/tomcat7 ] ; then 
+        service tomcat7 start 
+    fi 
+
     
     ;;
  
