@@ -28,13 +28,7 @@ that creates files .deb in target/
 
 
 The known issues:
-
-- you have to set java 7 in tomcat.  - https://github.com/UnifiedViews/Core/issues/258
-~~~bash
-# add line into /etc/default/tomcat7
-# JAVA_HOME= {location of your JAVA 7 HOME}
-~~~
-
+- be aware of the possible problem - https://github.com/UnifiedViews/Core/issues/258
 - to add backup configuration before an update installation of packages
 - to clean database schema during a purge phase 
 - to change location /etc/unifiedviews to /etc/default/unifiedviews
