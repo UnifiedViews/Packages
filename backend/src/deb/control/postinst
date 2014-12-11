@@ -80,10 +80,6 @@ db_configure() {
     -e "s/database.sql.port = .*/database.sql.port = 3306/" \
     -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
     -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
-    -e "s/database.rdf.hostname = .*/database.rdf.hostname = $address_host/" \
-    -e "s/database.rdf.port = .*/database.rdf.port = $address_port/" \
-    -e "s/database.rdf.user = .*/database.rdf.user = $username/" \
-    -e "s/database.rdf.password = .*/database.rdf.password = $password/" \
     /etc/unifiedviews/backend-config.properties
 }
 
