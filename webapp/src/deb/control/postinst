@@ -20,9 +20,6 @@ set -e
 . /usr/share/debconf/confmodule
 
 db_creadentials(){
-    db_get frontend/mysql_root
-    ROOT_PW=$RET
-
     db_get frontend/mysql_dba_user
     DBA_USER=$RET
 
