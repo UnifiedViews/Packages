@@ -19,7 +19,10 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-    service tomcat7 stop
+    if [ -e /etc/init.d/tomcat7 ] ; then 
+        service tomcat7 stop 
+    fi 
+      
     if [ -h /usr/share/unifiedviews/webapp/WEB-INF/config.properties ] ; then
         unlink /usr/share/unifiedviews/webapp/WEB-INF/config.properties
     fi
