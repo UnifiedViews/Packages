@@ -28,7 +28,8 @@ that creates files .deb in target/
 
 
 The known issues:
-- you have to set java 7 in tomcat. 
+
+- you have to set java 7 in tomcat.  - https://github.com/UnifiedViews/Core/issues/258
 ~~~bash
 # add line into /etc/default/tomcat7
 # JAVA_HOME= {location of your JAVA 7 HOME}
