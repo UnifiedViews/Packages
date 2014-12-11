@@ -17,7 +17,7 @@ How to uninstall with dependency
 # apt-get autoremove 
 ~~~
 
-How to create .deb packages for on Debian:
+How to create .deb packages for Debian:
 
 go to where pom.xml is placed and run
 ~~~bash
