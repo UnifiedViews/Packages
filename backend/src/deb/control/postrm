@@ -48,6 +48,11 @@ case "$1" in
 	    rm -rf /var/log/unifiedviews/backend
 	fi
     
+    if [ -e /var/log/unifiedviews/sql-install.log ] ; then
+        rm -f  /var/log/unifiedviews/sql-install.log
+    fi
+        
+    
     if [ -e /var/log/unifiedviews-backend-initd.log ] ; then
         rm -f  /var/log/unifiedviews-backend-initd.log
     fi
