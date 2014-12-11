@@ -1,0 +1,12 @@
+Template: frontend/mysql_root
+Type: password
+Default: admin
+Description: MySQL root password
+
+Template: frontend/mysql_dba_user
+Type: string
+Description: MySQL user for unifiedviews
+
+Template: frontend/mysql_dba_password
+Type: password
+Description: MySQL user password
