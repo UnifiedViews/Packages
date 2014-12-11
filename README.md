@@ -25,3 +25,15 @@ go to where pom.xml is placed and run
 ~~~
 
 that creates files .deb in target/
+
+
+The known issues:
+- you have to set java 7 in tomcat. 
+~~~bash
+# add property /etc/default/tomcat7
+# JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+~~~
+
+- to add backup configuration before an update installation of packages
+- to clean database schema during a purge phase 
+- to change location /etc/unifiedviews to /etc/default/unifiedviews
