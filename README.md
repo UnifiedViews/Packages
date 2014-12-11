@@ -38,3 +38,5 @@ The known issues:
 - to add backup configuration before an update installation of packages
 - to clean database schema during a purge phase 
 - to change location /etc/unifiedviews to /etc/default/unifiedviews
+- to remove sql-install.log after purge phase
+
