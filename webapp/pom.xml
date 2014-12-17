@@ -3,16 +3,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <version>1.4.1-SNAPSHOT</version>
-    <artifactId>debian-frontend</artifactId>
+    <version>1.5.0</version>
+    <artifactId>unifiedviews-webapp</artifactId>
     <packaging>war</packaging>
-    <name>debian-frontend</name>
+    <name>unifiedviews-webapp</name>
     <description/>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>frontend</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>master</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -34,42 +40,34 @@
                 <version>2.3</version>
                 <executions>
                     <execution>
-                        <id>copy-dependencies</id>
+                        <id>unpack</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <!-- the two lines below tell Maven not to include test scoped dependencies -->
-                            <includeScope>runtime</includeScope>
-                            <!--<excludeScope>provided</excludeScope>-->
-                            <excludeTransitive>false</excludeTransitive>
-                            <artifactItems>
-                                <includes>**/*.java</includes>
-                                <excludes>**/*.properties</excludes>
-                                 <excludeTransitive>false</excludeTransitive>
-                                <outputDirectory>${project.build.directory}/wars</outputDirectory>
-                                <overWriteReleases>false</overWriteReleases>
-                                <overWriteSnapshots>true</overWriteSnapshots>
-                            </artifactItems>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>frontend</artifactId>
+                                <version>${project.version}</version>
+                                <type>war</type>
+                                <overWrite>true</overWrite>
+                                <outputDirectory>${project.build.directory}/frontend</outputDirectory>
+                            </artifactItem>
+                            <artifactItem>
+                                <outputDirectory>${project.build.directory}/master</outputDirectory>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>master</artifactId>
+                                <version>${project.version}</version>
+                                <type>war</type>
+                            </artifactItem>
+                         </artifactItems>
+                         <overWriteReleases>false</overWriteReleases>
+                         <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>cz.cuni.mff.xrg.odcs.backend.AppEntry</mainClass>
-                            <classpathPrefix>lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>jdeb</artifactId>
@@ -84,13 +82,21 @@
                         <configuration>
                             <dataSet>
                                <data>
-                                    <src>${project.build.directory}/${project.build.finalName}</src>
+                                    <src>${project.build.directory}/frontend</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/webapp</prefix>
                                     </mapper>
                                 </data>
+                                <data>
+                                    <src>${project.build.directory}/master</src>
+                                    <type>directory</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/usr/share/unifiedviews/master</prefix>
+                                    </mapper>
+                                </data>                                
                                  <data>
                                     <src>${basedir}/src/deb/etc</src>
                                     <type>directory</type>
@@ -99,7 +105,6 @@
                                         <prefix>/etc</prefix>
                                     </mapper>
                                 </data>
-                                                      
                             </dataSet>
                         </configuration>
                     </execution>
