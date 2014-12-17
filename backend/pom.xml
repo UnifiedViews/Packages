@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <artifactId>debian-backend</artifactId>
+    <artifactId>unifiedviews-backend</artifactId>
     <packaging>jar</packaging>
-    <name>debian-backend</name>
+    <name>unifiedviews-backend</name>
     <description></description>
     <version>1.5.0</version>
 
