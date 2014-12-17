@@ -7,7 +7,7 @@ Provides source for creating UnifiedViews packages for various Linux distributio
 Till the package repository will be established use this
 
 ~~~bash
-dpkg -i  unifiedviews-backend_1.5.0_all.deb unifiedviews-frontend_1.5.0_all.deb
+dpkg -i  unifiedviews-backend_1.5.0_all.deb unifiedviews-webapp_1.5.0_all.deb
 #... some dependency errors
 apt-get install -f -y
 ~~~

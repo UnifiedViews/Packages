@@ -4,9 +4,9 @@
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
     <version>1.5.0</version>
-    <artifactId>unifiedviews-frontend</artifactId>
+    <artifactId>unifiedviews-webapp</artifactId>
     <packaging>war</packaging>
-    <name>unifiedviews-frontend</name>
+    <name>unifiedviews-webapp</name>
     <description/>
 
     <dependencies>
