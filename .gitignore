@@ -30,3 +30,5 @@ tramp
 *.un~
 Session.vim
 .netrwhist
+backend/target/
+webapp/target/

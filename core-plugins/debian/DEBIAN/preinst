@@ -1,8 +1,0 @@
-#!/bin/sh
-if [ -d "/var/lib/unifiedviews/target/dpu/uv-t-filesMerger" ]; then
-   rm -Rf /var/lib/unifiedviews/target/dpu/uv-t-filesMerger
-fi
-mkdir -p /var/lib/unifiedviews
-chown tomcat7:tomcat7 -R /var/lib/unifiedviews/
-  
-exit 
