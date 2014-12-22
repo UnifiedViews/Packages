@@ -1,0 +1,2 @@
+release date=09:13 19.12.2014,version=1.5.0-1,urgency=CRITICAL,by=Jan Marcek <jan.marcek@eea.sk>,distribution=stable
+ * Bugfix - changed name of package in configuration file - unifiedviews.conf
