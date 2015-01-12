@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <version>1.5.0</version>
+    <version>1.5.1-SNAPSHOT</version>
     <artifactId>unifiedviews-webapp</artifactId>
     <packaging>war</packaging>
     <name>unifiedviews-webapp</name>
@@ -80,6 +80,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
+                        <deb>${project.build.directory}/${artifactId}_${version}.deb</deb>
                             <dataSet>
                                <data>
                                     <src>${project.build.directory}/frontend</src>

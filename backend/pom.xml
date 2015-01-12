@@ -7,10 +7,7 @@
     <packaging>jar</packaging>
     <name>unifiedviews-backend</name>
     <description></description>
-    <version>1.5.0</version>
-    <properties>
-    <debian-version>1</debian-version>
-    </properties>
+    <version>1.5.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency> <!-- commons-app project -->
@@ -76,7 +73,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                        <deb>${project.build.directory}/${artifactId}_${version}-${debian-version}.deb</deb>
+                        <deb>${project.build.directory}/${artifactId}_${version}.deb</deb>
                             <dataSet>
                                 <data>
                                     <src>${project.build.directory}/${project.build.finalName}.jar</src>
