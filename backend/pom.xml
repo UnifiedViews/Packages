@@ -6,11 +6,31 @@
     <artifactId>unifiedviews-backend</artifactId>
     <packaging>jar</packaging>
     <name>unifiedviews-backend</name>
-    <description></description>
+    <description/>
     <version>1.5.1-SNAPSHOT</version>
 
+    <properties>
+        <backend-build>${project.build.directory}/${artifactId}-${version}_all.deb</backend-build>
+        <!-- set version in control file in debian package-->
+        <debian-package-version>${version}</debian-package-version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>snapshot</id>
+            <properties>
+                <!--read from comand line parameter: backend-snapshot-suffix -->
+                <!-- backend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
+                because convetion of debian packages: unifiedviews-backend-1.5.1~rc${build_number}.deb  -->
+                <debian-package-version>1.5.1~${backend-snapshot-suffix}</debian-package-version>
+                <backend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</backend-build>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
-        <dependency> <!-- commons-app project -->
+        <dependency>
+            <!-- commons-app project -->
             <groupId>${project.groupId}</groupId>
             <artifactId>backend</artifactId>
             <version>${project.version}</version>
@@ -24,9 +44,54 @@
             <url>http://maven.eea.sk/artifactory/public/</url>
         </repository>
     </repositories>
-    
+
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/tmp</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>CHANGES_template.txt</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>rename-file</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${basedir}/tmp/CHANGES_template.txt</sourceFile>
+                            <destinationFile>${basedir}/CHANGES.txt</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -73,7 +138,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                        <deb>${project.build.directory}/${artifactId}_${version}.deb</deb>
+                            <deb>${backend-build}</deb>
                             <dataSet>
                                 <data>
                                     <src>${project.build.directory}/${project.build.finalName}.jar</src>
@@ -92,8 +157,6 @@
                                         <prefix>/usr/share/unifiedviews/lib</prefix>
                                     </mapper>
                                 </data>
-                               
-                                
                                 <data>
                                     <src>${basedir}/src/deb/etc</src>
                                     <type>directory</type>

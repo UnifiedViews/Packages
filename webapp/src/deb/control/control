@@ -1,11 +1,11 @@
 Package: unifiedviews-webapp
 Source: unifiedviews-webapp
-Version: 1.5.1-SNAPSHOT
+Version: [[debian-package-version]]
 Section: java
 Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
-Depends: openjdk-7-jre-headless, tomcat7,  unifiedviews-backend  (= 1.5.1-SNAPSHOT)
+Depends: openjdk-7-jre-headless, tomcat7,  unifiedviews-backend 
 Replaces: lodms
 Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.

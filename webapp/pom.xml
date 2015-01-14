@@ -9,6 +9,23 @@
     <name>unifiedviews-webapp</name>
     <description/>
 
+    <properties>
+        <frontend-build>${project.build.directory}/${artifactId}_${version}_all.deb</frontend-build>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>snapshot</id>
+            <properties>
+                <!--read from comand line parameter: frontend-snapshot-suffix -->
+                <!-- frontend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
+                because convetion of debian packages: unifiedviews-webapp-1.5.1~rc${build_number}.deb  -->
+                <debian-package-version>1.5.1~${frontend-snapshot-suffix}</debian-package-version>
+                <frontend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</frontend-build>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -23,7 +40,7 @@
             <type>war</type>
         </dependency>
     </dependencies>
-    
+
     <repositories>
         <repository>
             <id>maven.eea.sk</id>
@@ -31,9 +48,53 @@
             <url>http://maven.eea.sk/artifactory/public/</url>
         </repository>
     </repositories>
-    
+
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/tmp</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>CHANGES_template.txt</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>rename-file</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${basedir}/tmp/CHANGES_template.txt</sourceFile>
+                            <destinationFile>${basedir}/CHANGES.txt</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>                     
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -46,25 +107,25 @@
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
-                        <artifactItems>
-                            <artifactItem>
-                                <groupId>${project.groupId}</groupId>
-                                <artifactId>frontend</artifactId>
-                                <version>${project.version}</version>
-                                <type>war</type>
-                                <overWrite>true</overWrite>
-                                <outputDirectory>${project.build.directory}/frontend</outputDirectory>
-                            </artifactItem>
-                            <artifactItem>
-                                <outputDirectory>${project.build.directory}/master</outputDirectory>
-                                <groupId>${project.groupId}</groupId>
-                                <artifactId>master</artifactId>
-                                <version>${project.version}</version>
-                                <type>war</type>
-                            </artifactItem>
-                         </artifactItems>
-                         <overWriteReleases>false</overWriteReleases>
-                         <overWriteSnapshots>true</overWriteSnapshots>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>frontend</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>war</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/frontend</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.directory}/master</outputDirectory>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>master</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>war</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
                 </executions>
@@ -80,9 +141,9 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                        <deb>${project.build.directory}/${artifactId}_${version}.deb</deb>
+                            <deb>${frontend-build}</deb>
                             <dataSet>
-                               <data>
+                                <data>
                                     <src>${project.build.directory}/frontend</src>
                                     <type>directory</type>
                                     <mapper>
@@ -98,7 +159,7 @@
                                         <prefix>/usr/share/unifiedviews/master</prefix>
                                     </mapper>
                                 </data>                                
-                                 <data>
+                                <data>
                                     <src>${basedir}/src/deb/etc</src>
                                     <type>directory</type>
                                     <mapper>
@@ -113,7 +174,7 @@
             </plugin>
         </plugins>
     </build>
-  
+
 </project>
 
 
