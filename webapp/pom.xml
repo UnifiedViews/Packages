@@ -11,6 +11,8 @@
 
     <properties>
         <frontend-build>${project.build.directory}/${artifactId}_${version}_all.deb</frontend-build>
+        <!-- set version in control file in debian package-->
+        <debian-package-version>${version}</debian-package-version>
     </properties>
 
     <profiles>
