@@ -23,10 +23,6 @@ case "$1" in
         service tomcat7 stop 
     fi 
       
-    if [ -h /usr/share/unifiedviews/webapp/WEB-INF/config.properties ] ; then
-        unlink /usr/share/unifiedviews/webapp/WEB-INF/config.properties
-    fi
-    
     ;;
 
  failed-upgrade)

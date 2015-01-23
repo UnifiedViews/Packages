@@ -39,11 +39,6 @@ db_creadentials(){
 
 
 prepare_dir() {
-   if [ -e "/etc/unifiedviews/frontend-config.properties" ]; then
-       ln -s /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/webapp/WEB-INF/config.properties
-       ln -s /etc/unifiedviews/frontend-config.properties /usr/share/unifiedviews/master/WEB-INF/config.properties
-    fi
-
     # todo /var/lib/unifiedviews/target/dpu
     mkdir -p /var/log/unifiedviews/frontend
     chown tomcat7:tomcat7 /var/log/unifiedviews/frontend
