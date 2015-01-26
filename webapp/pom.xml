@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.5.0</version>
     <artifactId>unifiedviews-webapp</artifactId>
     <packaging>war</packaging>
     <name>unifiedviews-webapp</name>
@@ -22,7 +22,7 @@
                 <!--read from comand line parameter: frontend-snapshot-suffix -->
                 <!-- frontend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
                 because convetion of debian packages: unifiedviews-webapp-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>1.5.1~${frontend-snapshot-suffix}</debian-package-version>
+                <debian-package-version>1.5.0~${frontend-snapshot-suffix}</debian-package-version>
                 <frontend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</frontend-build>
             </properties>
         </profile>

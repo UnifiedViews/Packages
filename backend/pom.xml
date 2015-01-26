@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <name>unifiedviews-backend</name>
     <description/>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.5.0</version>
 
     <properties>
         <backend-build>${project.build.directory}/${artifactId}-${version}_all.deb</backend-build>
@@ -22,7 +22,7 @@
                 <!--read from comand line parameter: backend-snapshot-suffix -->
                 <!-- backend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
                 because convetion of debian packages: unifiedviews-backend-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>1.5.1~${backend-snapshot-suffix}</debian-package-version>
+                <debian-package-version>1.5.0~${backend-snapshot-suffix}</debian-package-version>
                 <backend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</backend-build>
             </properties>
         </profile>
