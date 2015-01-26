@@ -139,6 +139,8 @@ prepare_dir() {
     mkdir -p /var/lib/unifiedviews/target/dpu
     chown tomcat7:tomcat7 /var/lib/unifiedviews/target/dpu
     
+    chown -R tomcat7:tomcat7 /var/www/dump/ 
+    
 }
 
 service_backend_start() {
