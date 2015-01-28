@@ -44,18 +44,10 @@ case "$1" in
  
     purge)
     # logs
-    if [ -d /var/log/unifiedviews/backend ] ; then 
-	    rm -rf /var/log/unifiedviews/backend
+    if [ -d /var/log/unifiedviews ] ; then 
+	    rm -rf /var/log/unifiedviews
 	fi
-    
-    if [ -e /var/log/unifiedviews/sql-install.log ] ; then
-        rm -f  /var/log/unifiedviews/sql-install.log
-    fi
-        
-    
-    if [ -e /var/log/unifiedviews-backend-initd.log ] ; then
-        rm -f  /var/log/unifiedviews-backend-initd.log
-    fi
+  
     ;;
     
     # TODO drop database from mysql
