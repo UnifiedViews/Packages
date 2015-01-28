@@ -22,7 +22,7 @@
                 <!--read from comand line parameter: frontend-snapshot-suffix -->
                 <!-- frontend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
                 because convetion of debian packages: unifiedviews-webapp-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>1.5.0-2~${frontend-snapshot-suffix}</debian-package-version>
+                <debian-package-version>1.5.5~${frontend-snapshot-suffix}</debian-package-version>
                 <frontend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</frontend-build>
             </properties>
         </profile>
