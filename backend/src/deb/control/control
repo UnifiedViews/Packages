@@ -1,5 +1,5 @@
 Package: unifiedviews-backend
-Version: 1.5.0-1
+Version: [[debian-package-version]]
 Section: java
 Priority: extra
 Architecture: all
