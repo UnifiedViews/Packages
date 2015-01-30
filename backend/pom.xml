@@ -1,19 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <artifactId>unifiedviews-backend</artifactId>
-    <packaging>jar</packaging>
-    <name>unifiedviews-backend</name>
-    <description/>
+    <artifactId>unifiedviews-packages</artifactId>
+    <packaging>pom</packaging>
     <version>1.5.5-SNAPSHOT</version>
+    <name>unifiedviews-packages</name>
+
 
     <properties>
-        <backend-build>${project.build.directory}/${artifactId}-${version}_all.deb</backend-build>
+        <backend-build>${project.build.directory}/${project.artifactId}-${project.version}_all.deb</backend-build>
         <!-- set version in control file in debian package-->
-        <debian-package-version>${version}</debian-package-version>
+        <debian-package-version>${project.version}</debian-package-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
 
     <profiles>
         <profile>
@@ -22,170 +25,16 @@
                 <!--read from comand line parameter: backend-snapshot-suffix -->
                 <!-- backend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
                 because convetion of debian packages: unifiedviews-backend-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>1.5.5~${backend-snapshot-suffix}</debian-package-version>
-                <backend-build>${project.build.directory}/${artifactId}_${debian-package-version}_all.deb</backend-build>
+                <debian-package-version>${project.version}~${backend-snapshot-suffix}</debian-package-version>
+                <backend-build>${project.build.directory}/${project.artifactId}_${debian-package-version}_all.deb</backend-build>
             </properties>
         </profile>
     </profiles>
 
-    <dependencies>
-        <dependency>
-            <!-- commons-app project -->
-            <groupId>${project.groupId}</groupId>
-            <artifactId>backend</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>unifiedviews-backend</module>
+        <module>unifiedviews-backend-mysql</module>
+        <module>unifiedviews-backend-shared</module>
+    </modules>
 
-    <repositories>
-        <repository>
-            <id>maven.eea.sk</id>
-            <name>maven.eea.sk-public</name>
-            <url>http://maven.eea.sk/artifactory/public/</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/tmp</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>          
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>CHANGES_template.txt</include>
-                                    </includes>
-                                </resource>
-                            </resources>              
-                        </configuration>            
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>rename-file</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>rename</goal>
-                        </goals>
-                        <configuration>
-                            <sourceFile>${basedir}/tmp/CHANGES_template.txt</sourceFile>
-                            <destinationFile>${basedir}/CHANGES.txt</destinationFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>            
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <!-- the two lines below tell Maven not to include test scoped dependencies -->
-                            <includeScope>runtime</includeScope>
-                            <!--<excludeScope>provided</excludeScope>-->
-                            <excludeTransitive>false</excludeTransitive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>cz.cuni.mff.xrg.odcs.backend.AppEntry</mainClass>
-                            <classpathPrefix>lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>jdeb</artifactId>
-                <groupId>org.vafer</groupId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jdeb</goal>
-                        </goals>
-                        <configuration>
-                            <deb>${backend-build}</deb>
-                            <dataSet>
-                                <data>
-                                    <src>${project.build.directory}/${project.build.finalName}.jar</src>
-                                    <type>file</type>
-
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${project.build.directory}/lib</src>
-                                    <type>directory</type>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews/lib</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${basedir}/src/deb/etc</src>
-                                    <type>directory</type>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/etc</prefix>
-                                    </mapper>
-                                </data>                                
-                                <data>
-                                    <src>${basedir}/src/deb/usr</src>
-                                    <type>directory</type>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/usr</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${basedir}/src/deb/var</src>
-                                    <type>directory</type>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/var</prefix>
-                                    </mapper>
-                                </data>
-                            </dataSet>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

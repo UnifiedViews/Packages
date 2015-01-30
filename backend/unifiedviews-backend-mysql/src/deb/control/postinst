@@ -97,7 +97,7 @@ db_configure() {
         /usr/share/unifiedviews/mysql/version.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
-    exist=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "   select exists( select * from properties WHERE properties.key='UV.db.version') " unifiedviews`
+    exist=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "   select exists( select * from properties WHERE properties.key='UV.db.version') " unifiedviews` || false
     # if record properties.UV.db.version is not exist then create it
     if [ "$exist" -eq "0" ]
     then
@@ -115,49 +115,6 @@ db_configure() {
     /etc/unifiedviews/backend-config.properties
 }
 
-prepare_dir() { 
-
-    mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews/backend
-    
-    mkdir -p /usr/share/unifiedviews
-    chown tomcat7:tomcat7 /usr/share/unifiedviews
-
-    mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews /var/log/unifiedviews/backend
-
-    mkdir -p /var/lib/unifiedviews/backend/working
-    chown tomcat7:tomcat7  /var/lib/unifiedviews/backend  /var/lib/unifiedviews/backend/working
-
-    mkdir -p /var/lib/unifiedviews/target
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target /var/lib/unifiedviews/target
-
-    mkdir -p /var/lib/unifiedviews/target/
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/backend/working
-    
-    mkdir -p ~tomcat7/.eclipse
-    chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
-
-    chown tomcat7:tomcat7 /usr/share/unifiedviews
-    chmod g+w /usr/share/unifiedviews
-    chmod +x  /usr/sbin/run_unifiedviews_backend
-    chown tomcat7:tomcat7 /usr/sbin/run_unifiedviews_backend
-  
-    chmod +x  /etc/init.d/unifiedviews-backend
-
-    chown tomcat7:tomcat7 /usr/share/tomcat7
-    
-    mkdir -p /var/lib/unifiedviews/target/lib
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib
-    
-    mkdir -p /var/lib/unifiedviews/target/dpu
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/dpu
-    
-    if [ -e "/var/www/dump/" ]; then
-        chown -R tomcat7:tomcat7 /var/www/dump/ 
-    fi
-    
-}
 
 service_backend_start() {
     if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
@@ -172,7 +129,6 @@ case "$1" in
     db_creadentials
     db_up
     set_java
-    prepare_dir
     db_configure
     service_backend_start
     db_stop

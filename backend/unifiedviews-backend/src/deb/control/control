@@ -1,0 +1,8 @@
+Package: unifiedviews-backend
+Version: [[debian-package-version]]
+Section: java
+Priority: extra
+Architecture: all
+Maintainer: jmc@eea.sk
+Depends: unifiedviews-backend-mysql | unifiedviews-backend-pgsql
+Description: META

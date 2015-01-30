@@ -4,7 +4,7 @@
   <groupId>cz.cuni.mff.xrg.odcs</groupId>
   <artifactId>unifiedviews-packages</artifactId>
   <packaging>pom</packaging>
-  <version>1.5</version>
+  <version>1.5.6</version>
   <name>unifiedviews-packages</name>
 
   <modules>
