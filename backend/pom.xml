@@ -45,7 +45,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/tmp</outputDirectory>
+                            <outputDirectory>${basedir}/target/tmp</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>          
                                 <resource>
@@ -72,8 +72,8 @@
                             <goal>rename</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>${basedir}/tmp/CHANGES_template.txt</sourceFile>
-                            <destinationFile>${basedir}/CHANGES.txt</destinationFile>
+                            <sourceFile>${basedir}/target/tmp/CHANGES_template.txt</sourceFile>
+                            <destinationFile>${basedir}/target/CHANGES.txt</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
