@@ -84,6 +84,7 @@
     <modules>
         <module>unifiedviews-backend</module>
         <module>unifiedviews-backend-mysql</module>
+        <module>unifiedviews-backend-pgsql</module>
         <module>unifiedviews-backend-shared</module>
     </modules>
 
