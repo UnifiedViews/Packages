@@ -23,10 +23,10 @@ db_creadentials(){
     db_get backend/mysql_root
     ROOT_PW=$RET
 
-    db_get backend/mysql_dba_user
+    db_get backend/mysql_db_user
     DBA_USER=$RET
 
-    db_get backend/mysql_dba_password
+    db_get backend/mysql_db_password
     DBA_PASS=$RET
 
 }

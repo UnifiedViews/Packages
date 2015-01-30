@@ -3,10 +3,10 @@ Type: password
 Default: admin
 Description: MySQL root password
 
-Template: backend/mysql_dba_user
+Template: backend/mysql_db_user
 Type: string
 Description: MySQL user for unifiedviews
 
-Template: backend/mysql_dba_password
+Template: backend/mysql_db_password
 Type: password
-Description: MySQL user password
+Description: MySQL user password for unifiedviews
