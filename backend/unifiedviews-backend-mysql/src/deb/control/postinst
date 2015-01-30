@@ -92,19 +92,7 @@ db_configure() {
         /usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
         mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
         /usr/share/unifiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-        # set db schema version
-        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
-        /usr/share/unifiedviews/mysql/version.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
-    
-    exist=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "   select exists( select * from properties WHERE properties.key='UV.db.version') " unifiedviews` || false
-    # if record properties.UV.db.version is not exist then create it
-    if [ "$exist" -eq "0" ]
-    then
-       # set db schema version
-       mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
-       /usr/share/unifiedviews/mysql/version.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-    fi
     
     # update backend config
     sed --in-place \
