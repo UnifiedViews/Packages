@@ -1,11 +1,11 @@
-Package: unifiedviews-webapp-mysql
-Source: unifiedviews-webapp-mysql
+Package: unifiedviews-webapp-pgsql
+Source: unifiedviews-webapp-pgsql
 Version: [[debian-package-version]]
 Section: java
 Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
-Depends: unifiedviews-webapp-shared, mysql-server,  debconf (>= 0.5)
+Depends: unifiedviews-webapp-shared, postgresql,  debconf (>= 0.5)
 Replaces: lodms
-Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.
+Description: The postgresql database and settings for unifiedviews.

@@ -5,4 +5,4 @@ Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Depends: openjdk-7-jre-headless, tomcat7, debconf (>= 0.5)
-Description: DATA
+Description: The unifiedviews's backend binaries. 

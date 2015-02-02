@@ -8,4 +8,4 @@ Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
 Depends: openjdk-7-jre-headless, tomcat7,  unifiedviews-backend 
 Replaces: lodms
-Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.
+Description: The unifiedviews's frontend binaries. 
