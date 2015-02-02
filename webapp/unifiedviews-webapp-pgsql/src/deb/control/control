@@ -7,5 +7,6 @@ Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
 Depends: unifiedviews-webapp-shared, postgresql,  debconf (>= 0.5)
+Conflicts: unifiedviews-backend-mysql, unifiedviews-webapp-mysql
 Replaces: lodms
 Description: The postgresql database and settings for unifiedviews.

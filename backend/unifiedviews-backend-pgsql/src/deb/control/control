@@ -5,4 +5,5 @@ Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Depends: unifiedviews-backend-shared, postgresql, debconf (>= 0.5)
+Conflicts: unifiedviews-backend-mysql
 Description: The postgresql database and settings for unifiedviews's backend.
