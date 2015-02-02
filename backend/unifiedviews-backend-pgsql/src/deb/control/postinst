@@ -101,6 +101,7 @@ db_configure() {
               
         #su - postgres -c "psql -q -c \"GRANT ALL PRIVILEGES ON DATABASE ${dbname} TO  ${usrname}\"" 
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
         echo " Done" 
     fi
 
