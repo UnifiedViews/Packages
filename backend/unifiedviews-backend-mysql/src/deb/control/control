@@ -4,6 +4,6 @@ Section: java
 Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
-Depends: unifiedviews-backend-shared, mysql-server,  debconf (>= 0.5)
+Depends: unifiedviews-backend-shared ( >= 1.5.5), mysql-server,  debconf (>= 0.5)
 Conflicts: unifiedviews-backend-pgsql
 Description: The mysql database and settings for unifiedviews's backend.
