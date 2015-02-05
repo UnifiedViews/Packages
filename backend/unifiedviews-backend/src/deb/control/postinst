@@ -17,23 +17,17 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-. /usr/share/debconf/confmodule
-
-
-prepare_dir() {
-    # todo /var/lib/unifiedviews/target/dpu
-    mkdir -p /var/log/unifiedviews/frontend
-    chown tomcat7:tomcat7 /var/log/unifiedviews/frontend
-    mkdir -p /usr/share/unifiedviews/webapp
-    chown tomcat7:tomcat7 -R /usr/share/unifiedviews/webapp
-    mkdir -p /usr/share/unifiedviews/master
-    chown tomcat7:tomcat7 -R /usr/share/unifiedviews/master
+service_backend_restart() {
+    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+        invoke-rc.d unifiedviews-backend restart || true
+    else
+        service unifiedviews-backend restart || true
+    fi
 }
 
 case "$1" in
     configure)
-    prepare_dir
-    db_stop
+    service_backend_restart
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

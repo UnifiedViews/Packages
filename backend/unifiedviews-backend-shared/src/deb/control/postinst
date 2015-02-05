@@ -78,19 +78,11 @@ prepare_dir() {
     
 }
 
-service_backend_restart() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
-}
 
 case "$1" in
   configure)
     set_java
     prepare_dir
-    service_backend_restart
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
