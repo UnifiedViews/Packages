@@ -2,6 +2,6 @@ Template: frontend/pgsql_db_user
 Type: string
 Description: Postgresql user for unifiedviews
 
-Template: frontend/pgsql_dba_password
+Template: frontend/pgsql_db_password
 Type: password
 Description: Postgresql user password

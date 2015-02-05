@@ -20,10 +20,10 @@ set -e
 . /usr/share/debconf/confmodule
 
 db_creadentials(){
-    db_get frontend/mysql_dba_user
+    db_get frontend/mysql_db_user
     DBA_USER=$RET
 
-    db_get frontend/mysql_dba_password
+    db_get frontend/mysql_db_password
     DBA_PASS=$RET
     
     #update frontend config
