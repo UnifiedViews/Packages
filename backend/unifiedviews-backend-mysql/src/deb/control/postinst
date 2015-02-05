@@ -99,9 +99,7 @@ db_configure() {
     then
        # set db schema version
        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
-       /usr/share/unifiedviews/mysql/1.5.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-       mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
-       /usr/share/unifiedviews/mysql/1.5.5-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1       
+       /usr/share/unifiedviews/mysql/1.5.5-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi
     
     
