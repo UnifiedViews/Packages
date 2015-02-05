@@ -36,16 +36,9 @@ db_creadentials(){
 }
 
 
-restart_tomcat() {
-    if [ -e /etc/init.d/tomcat7 ] ; then 
-        service tomcat7 restart 
-    fi 
-}
-
 case "$1" in
     configure)
     db_creadentials
-    restart_tomcat
     db_stop
     ;;
 
