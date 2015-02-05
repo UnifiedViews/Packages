@@ -115,13 +115,7 @@ db_configure() {
     /etc/unifiedviews/backend-config.properties
 }
 
-service_backend_start() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend start || true
-    else
-        service unifiedviews-backend start || true
-    fi
-}
+
 
 case "$1" in
   configure)
@@ -129,7 +123,6 @@ case "$1" in
     db_up
     set_java
     db_configure unifiedviews $DB_USER $DB_PASS
-    service_backend_start
     db_stop
     
   ;;
