@@ -2,8 +2,8 @@
 set -e
 . /usr/share/debconf/confmodule
 
-db_input critical frontend/mysql_dba_user || true
+db_input critical frontend/pgsql_dba_user || true
 db_go
-db_input critical frontend/mysql_dba_password || true
+db_input critical frontend/pgsql_dba_password || true
 db_go
 
