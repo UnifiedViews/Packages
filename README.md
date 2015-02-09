@@ -25,7 +25,7 @@ mvn package
 ~~~
 
 that creates files .deb in target/
-
+![Debian dependency graph](debian_dependencyGraph.png)
 
 The known issues:
 - be aware of the possible problem - https://github.com/UnifiedViews/Core/issues/258
