@@ -90,7 +90,6 @@
     </build>        
 
     <modules>
-        <module>unifiedviews-webapp</module>
         <module>unifiedviews-webapp-mysql</module>
         <module>unifiedviews-webapp-pgsql</module>
         <module>unifiedviews-webapp-shared</module>
