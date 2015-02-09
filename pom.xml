@@ -10,9 +10,11 @@
     <modules>
         <module>unifiedviews-mysql</module>
         <module>unifiedviews-pgsql</module>
+        <module>unifiedviews-backend</module>
         <module>unifiedviews-backend-mysql</module>
         <module>unifiedviews-backend-pgsql</module>
         <module>unifiedviews-backend-shared</module>
+        <module>unifiedviews-webapp</module>
         <module>unifiedviews-webapp-mysql</module>
         <module>unifiedviews-webapp-pgsql</module>
         <module>unifiedviews-webapp-shared</module>

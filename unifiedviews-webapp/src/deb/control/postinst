@@ -17,17 +17,16 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-service_backend_restart() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
+
+restart_tomcat() {
+    if [ -e /etc/init.d/tomcat7 ] ; then 
+        service tomcat7 restart 
+    fi 
 }
 
 case "$1" in
     configure)
-    service_backend_restart
+    restart_tomcat
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
