@@ -2,18 +2,21 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <artifactId>unifiedviews</artifactId>
+    <artifactId>unifiedviews-packages</artifactId>
     <packaging>pom</packaging>
     <version>1.5.5-SNAPSHOT</version>
-    <name>unifiedviews</name>
+    <name>unifiedviews-packages</name>
 
     <modules>
-        <module>backend</module>
-        <module>webapp</module>
         <module>unifiedviews-mysql</module>
+        <module>unifiedviews-pgsql</module>
+        <module>unifiedviews-backend-mysql</module>
+        <module>unifiedviews-backend-pgsql</module>
+        <module>unifiedviews-backend-shared</module>
+        <module>unifiedviews-webapp-mysql</module>
+        <module>unifiedviews-webapp-pgsql</module>
+        <module>unifiedviews-webapp-shared</module>
     </modules>
-
-
 
     <properties>
         <backend-build>${project.build.directory}/${project.artifactId}-${project.version}_all.deb</backend-build>
