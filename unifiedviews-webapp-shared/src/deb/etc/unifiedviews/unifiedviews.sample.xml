@@ -1,0 +1,8 @@
+<!--
+    Tomcat7 context configuration file for the  unifiedviews Web App
+-->
+
+<Context path="/unifiedviews" docBase="/usr/share/unifiedviews/webapp"
+   debug="0" privileged="false" allowLinking="true" crossContext="false">
+ 
+</Context>

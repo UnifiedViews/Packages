@@ -1,2 +1,0 @@
-release date=11:13 14.01.2015,version=${debian-package-version},urgency=low,by=jmc@eea.sk,distribution=unknown
- * create develop release ${debian-package-version}
