@@ -1,0 +1,8 @@
+Template: backend/pgsql_db_user
+Type: string
+Description: Postgres user for unifiedviews
+
+Template: backend/pgsql_db_password
+Type: password
+Description: Postgres user password for unifiedviews
+ 

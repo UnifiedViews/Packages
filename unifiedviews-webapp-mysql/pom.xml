@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cz.cuni.mff.xrg.odcs</groupId>
+    <artifactId>unifiedviews-webapp-mysql</artifactId>
+    <name>unifiedviews-webapp-mysql</name>
+    <description/>
+
+    <parent>
+        <groupId>cz.cuni.mff.xrg.odcs</groupId>
+        <artifactId>unifiedviews-packages</artifactId>
+        <version>1.5.5</version>
+    </parent>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <deb>${frontend-build}</deb>
+                            <dataSet>
+                                <data>
+                                    <src>${basedir}/src/deb/etc</src>
+                                    <type>directory</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc</prefix>
+                                    </mapper>
+                                </data>
+                                <!-- Symbolic links-->
+                                <data>
+                                    <type>link</type>
+                                    <linkName>/usr/share/unifiedviews/webapp/WEB-INF/config.properties</linkName>
+                                    <linkTarget>/etc/unifiedviews/frontend-config.properties</linkTarget>
+                                    <symlink>true</symlink>
+                                </data>
+                                <data>
+                                    <type>link</type>
+                                    <linkName>/usr/share/unifiedviews/master/WEB-INF/config.properties</linkName>
+                                    <linkTarget>/etc/unifiedviews/frontend-config.properties</linkTarget>
+                                    <symlink>true</symlink>
+                                </data>
+                                <data>
+                                    <type>link</type>
+                                    <linkName>/etc/unifiedviews/unifiedviews.xml</linkName>
+                                    <linkTarget>/etc/tomcat7/Catalina/localhost/unifiedviews.xml</linkTarget>
+                                    <symlink>true</symlink>
+                                </data>                                
+                                <data>
+                                    <type>link</type>
+                                    <linkName>/etc/unifiedviews/master.xml</linkName>
+                                    <linkTarget>/etc/tomcat7/Catalina/localhost/master.xml</linkTarget>
+                                    <symlink>true</symlink>
+                                </data>                                                  
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+
