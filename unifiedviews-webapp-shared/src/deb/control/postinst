@@ -17,7 +17,6 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-. /usr/share/debconf/confmodule
 
 
 prepare_dir() {
@@ -33,7 +32,6 @@ prepare_dir() {
 case "$1" in
     configure)
     prepare_dir
-    db_stop
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
