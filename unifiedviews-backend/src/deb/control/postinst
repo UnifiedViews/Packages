@@ -18,6 +18,8 @@ set -e
 # the debian-policy package
 
 service_backend_restart() {
+    update-rc.d unifiedviews-backend defaults
+    
     if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
         invoke-rc.d unifiedviews-backend restart || true
     else
