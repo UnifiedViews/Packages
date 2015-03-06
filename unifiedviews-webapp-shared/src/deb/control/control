@@ -7,6 +7,6 @@ Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
 Depends: openjdk-7-jre-headless, tomcat7
-Replaces: lodms,  unifiedviews-webapp (= 1.5.0)
-Breaks: unifiedviews-webapp (= 1.5.0)
+Replaces: lodms,  unifiedviews-webapp (<= 1.5.0-1)
+Breaks: unifiedviews-webapp (<= 1.5.0-1)
 Description: The unifiedviews's frontend binaries. 
