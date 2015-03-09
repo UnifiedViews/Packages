@@ -8,7 +8,7 @@
     <parent>
         <groupId>cz.cuni.mff.xrg.odcs</groupId>
         <artifactId>unifiedviews-packages</artifactId>
-        <version>1.5.5</version>
+        <version>1.6.0</version>
     </parent>
 
     <dependencies>

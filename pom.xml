@@ -4,7 +4,7 @@
     <groupId>cz.cuni.mff.xrg.odcs</groupId>
     <artifactId>unifiedviews-packages</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.5</version>
+    <version>1.6.0</version>
     <name>unifiedviews-packages</name>
 
     <modules>
@@ -24,7 +24,7 @@
         <backend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</backend-build>
         <frontend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</frontend-build>
         <!-- set version in control file in debian package-->
-        <debian-package-version-suffix>-1</debian-package-version-suffix>
+        <debian-package-version-suffix></debian-package-version-suffix>
         <debian-package-version>${project.version}${debian-package-version-suffix}</debian-package-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

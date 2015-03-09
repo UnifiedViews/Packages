@@ -111,6 +111,14 @@ db_configure() {
         echo " Done" 
     fi
 
+     version=`su - postgres -c  "psql -A -t -d unifiedviews -c \"select value from properties WHERE properties.key='UV.Core.version' \""`
+     if [ "$version" = "001.005.005" ]
+     then
+       # set db schema version
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/1.6.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+     fi
+    
 
     # update backend config
     sed --in-place \

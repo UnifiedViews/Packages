@@ -101,11 +101,11 @@ db_configure() {
     fi    
     
     version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " unifiedviews`
-    if [ "$version" = "001.004.000" ]
+    if [ "$version" = "001.005.005" ]
     then
        # set db schema version
        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
-       /usr/share/unifiedviews/mysql/1.5.5-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+       /usr/share/unifiedviews/mysql/1.6.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi
     
     
