@@ -21,6 +21,8 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
+    
+    update-rc.d unifiedviews-backend remove
     # init script
 	if [ -h /etc/init.d/unifiedviews_backend ] ; then 
 	    rm -f /etc/init.d/unifiedviews_backend

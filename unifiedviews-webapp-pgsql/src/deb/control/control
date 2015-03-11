@@ -6,7 +6,7 @@ Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
-Depends: unifiedviews-webapp-shared (= 1.6.0), postgresql,  debconf (>= 0.5)
+Depends: unifiedviews-webapp-shared (>> 1.6.0), postgresql,  debconf (>= 0.5)
 Conflicts: unifiedviews-backend-mysql, unifiedviews-webapp-mysql
 Breaks: unifiedviews-webapp (<= 1.5.0-1)
 Replaces: lodms, unifiedviews-webapp (<= 1.5.0-1)
