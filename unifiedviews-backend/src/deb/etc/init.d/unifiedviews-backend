@@ -75,6 +75,38 @@ UNIFIEDVIEWS_LOG="${UNIFIEDVIEWS_LOG:-/var/log/unifiedviews/${NAME}-initd.log}"
 # If change is needed, use sysconfig instead of here
 export UNIFIEDVIEWS_PID="${UNIFIEDVIEWS_PID:-/var/run/${NAME}.pid}"
 
+find_jdks()
+{
+    for java_version in 9 8 7
+    do
+        for jvmdir in /usr/lib/jvm/java-${java_version}-openjdk-* \
+                      /usr/lib/jvm/jdk-${java_version}-oracle-* \
+                      /usr/lib/jvm/jre-${java_version}-oracle-*
+        do
+            if [ -d "${jvmdir}" -a "${jvmdir}" != "/usr/lib/jvm/java-${java_version}-openjdk-common" ]
+            then
+                JDK_DIRS="${JDK_DIRS} ${jvmdir}"
+            fi
+        done
+    done
+
+    # Add older non multi arch installations
+    JDK_DIRS="${JDK_DIRS} /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-7-oracle"
+}
+
+# The first existing directory is used for JAVA_HOME (if JAVA_HOME is not
+# defined in UNIFIEDVIEWS_CFG)
+JDK_DIRS=""
+find_jdks
+
+# Look for the right JVM to use
+for jdir in $JDK_DIRS; do
+    if [ -r "$jdir/bin/java" -a -z "${JAVA_HOME}" ]; then
+	JAVA_HOME="$jdir"
+    fi
+done
+export JAVA_HOME
+
 RETVAL="0"
 
 function parseOptions() {
@@ -99,10 +131,17 @@ function version() {
 # See how we were called.
 function start() {
    echo -n "Starting ${UNIFIEDVIEWS_PROG}: "
+
+   if [ -z "$JAVA_HOME" ]; then
+            log_failure_msg "no JDK found - please set JAVA_HOME"
+            exit 1
+   fi
+
    if [ "$RETVAL" != "0" ]; then 
      log_failure_msg
      return
    fi
+   
    if [ -f "/var/lock/${NAME}" ]; then
         if [ -f "${UNIFIEDVIEWS_PID}" ]; then
             read kpid < ${UNIFIEDVIEWS_PID}
