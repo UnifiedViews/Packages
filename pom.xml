@@ -21,29 +21,11 @@
     </modules>
 
     <properties>
-        <backend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</backend-build>
-        <frontend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</frontend-build>
-        <!-- set version in control file in debian package-->
-        <debian-package-version-suffix></debian-package-version-suffix>
-        <debian-package-version>${project.version}${debian-package-version-suffix}</debian-package-version>
+        <debian-package-version>1.6.1~</debian-package-version>
+        <debian-package-name>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</debian-package-name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-
-
-    <profiles>
-        <profile>
-            <id>snapshot</id>
-            <properties>
-                <!--read from comand line parameter: backend-snapshot-suffix -->
-                <!-- backend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
-                because convetion of debian packages: unifiedviews-backend-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>${project.version}${debian-package-version-suffix}~${backend-snapshot-suffix}</debian-package-version>
-                <backend-build>${project.build.directory}/${project.artifactId}_${debian-package-version}_all.deb</backend-build>
-                <frontend-build>${project.build.directory}/${project.artifactId}_${debian-package-version}_all.deb</frontend-build>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>

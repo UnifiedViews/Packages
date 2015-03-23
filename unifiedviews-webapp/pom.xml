@@ -42,7 +42,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                            <deb>${frontend-build}</deb>
+                            <deb>${debian-package-name}</deb>
                             <dataSet>
                                 <data>
                                     <src>${basedir}/src/deb/tmp</src>

@@ -38,7 +38,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                            <deb>${backend-build}</deb>
+                            <deb>${debian-package-name}</deb>
                             <dataSet>
                                 <data>
                                     <src>${basedir}/src/deb/usr</src>
