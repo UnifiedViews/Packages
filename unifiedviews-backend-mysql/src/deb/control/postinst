@@ -20,6 +20,7 @@ set -e
 . /usr/share/debconf/confmodule
 
 db_creadentials(){
+    echo " >>> db_creadentials"
     db_get backend/mysql_root
     ROOT_PW=$RET
 
@@ -28,10 +29,12 @@ db_creadentials(){
 
     db_get backend/mysql_db_password
     DBA_PASS=$RET
-
+    echo " <<< db_creadentials"
 }
 
 set_java() {
+ echo " >>> set_java"
+
  JAVA_VERSION=`java -version 2>&1 | grep "java version" | awk '{print $3}' | tr -d \" | awk '{split($0, array, ".")} END{print array[2]}'`
  echo -n "check java version"
  if [ ! $JAVA_VERSION -eq 7 ]; then
@@ -46,11 +49,13 @@ set_java() {
  else
     echo  " - ok"
  fi
-
+ echo " <<< set_java"
 }
 
 
 db_up() {
+ echo " >>> db_up"
+
   #Check if mysql is started
   service mysql status > /dev/null || service mysql start >/dev/null 2>&1
 
@@ -76,14 +81,19 @@ db_up() {
   done
 
   echo " Done"
+  echo " <<< db_up"
 }
 
 service_backend_restart() {
+   echo " >>> service_backend_restart"
+
     if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
         invoke-rc.d unifiedviews-backend restart || true
     else
         service unifiedviews-backend restart || true
     fi
+
+    echo " <<< service_backend_restart"
 }
 
 db_configure() {
@@ -108,27 +118,27 @@ db_configure() {
         /usr/share/unifiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
-    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " unifiedviews`
+    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
     if [ "$version" = "001.004.000" ]
     then
        # set db schema version
-        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
        /usr/share/unifiedviews/mysql/1.5.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi
     
-    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " unifiedviews`
+    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
     if [ "$version" = "001.005.000" ]
     then
        # set db schema version
-       mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+       mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
        /usr/share/unifiedviews/mysql/1.5.5-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
-    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " unifiedviews`
+    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
     if [ "$version" = "001.005.005" ]
     then
        # set db schema version
-       mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+       mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
        /usr/share/unifiedviews/mysql/1.6.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
@@ -140,6 +150,8 @@ db_configure() {
     -e "s/database.sql.user = .*/database.sql.user = $DBA_USER/" \
     -e "s/database.sql.password = .*/database.sql.password = $DBA_PASS/" \
     /etc/unifiedviews/backend-config.properties
+
+    echo " <<< db_configure"
 }
 
 
