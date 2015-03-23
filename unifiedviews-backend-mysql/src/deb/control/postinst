@@ -87,16 +87,24 @@ service_backend_restart() {
 }
 
 db_configure() {
+    echo " >>> db_configure"
+    DB_NAME=unifiedviews
     # if database unifiedviews is not exist
-    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use unifiedviews'; then
-        echo "create database if not exists unifiedviews;" | mysql --password=$ROOT_PW
-        echo "create user $DBA_USER identified by '$DBA_PASS';" | mysql --password=$ROOT_PW || true
-        echo "grant ALL on unifiedviews.* to $DBA_USER;" | mysql --password=$ROOT_PW
-        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use $DB_NAME'; then
+        echo "create database if not exists $DB_NAME;" | mysql --password=$ROOT_PW
+        echo "created database: $DB_NAME"
+        # create a user if not exists
+        echo "create user $DBA_USER identified by '$ROOT_PW';" | mysql --password=$ROOT_PW || true
+        echo "created user: $DBA_USER"
+        # set permissions for user uv
+        echo "grant all on $DB_NAME.* to '$DBA_USER' identified by '$DBA_PASS';"  | mysql --password=$ROOT_PW || true
+        echo "granted all on $DB_NAME for user: $DBA_USER"
+      
+        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
         /usr/share/unifiedviews/mysql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
         /usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-        mysql -u $DBA_USER --password=$DBA_PASS unifiedviews < \
+        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
         /usr/share/unifiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
