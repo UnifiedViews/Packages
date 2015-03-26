@@ -50,18 +50,6 @@
                                     <linkTarget>/etc/unifiedviews/frontend-config.properties</linkTarget>
                                     <symlink>true</symlink>
                                 </data>
-                                <data>
-                                    <type>link</type>
-                                    <linkName>/etc/unifiedviews/unifiedviews.xml</linkName>
-                                    <linkTarget>/etc/tomcat7/Catalina/localhost/unifiedviews.xml</linkTarget>
-                                    <symlink>true</symlink>
-                                </data>                                
-                                <data>
-                                    <type>link</type>
-                                    <linkName>/etc/unifiedviews/master.xml</linkName>
-                                    <linkTarget>/etc/tomcat7/Catalina/localhost/master.xml</linkTarget>
-                                    <symlink>true</symlink>
-                                </data>                                                  
                             </dataSet>
                         </configuration>
                     </execution>

@@ -18,18 +18,22 @@ set -e
 # the debian-policy package
 
 
-restart_tomcat() {
-   if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d tomcat7 restart || true
-    else
-        service tomcat7 restart || true
-    fi    
+
+service_restart() {
+    update-rc.d unifiedviews-frontend defaults
     
+    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+        invoke-rc.d unifiedviews-frontend restart || true
+    else
+        service unifiedviews-frontend restart || true
+    fi
 }
+
+
 
 case "$1" in
     configure)
-    restart_tomcat
+    service_restart
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
