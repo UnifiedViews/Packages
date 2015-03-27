@@ -122,13 +122,14 @@
                                         <group>tomcat7</group>
                                     </mapper>
                                 </data>
-                                <!-- create folders cache, log and tmp forunifiedviews -->
+                                <!-- create folders cache, log and tmp for unifiedviews -->
                                 <data>
                                     <type>template</type>
                                     <paths>
                                         <path>/var/cache/unifiedviews</path>
                                         <path>/var/log/unifiedviews</path>
                                         <path>/var/tmp/unifiedviews</path>
+                                        <path>/usr/share/unifiedviews/tomcat</path>
                                     </paths>
                                 </data>          
                                 <data>
