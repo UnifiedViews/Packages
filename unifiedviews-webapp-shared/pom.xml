@@ -105,11 +105,21 @@
                                     </mapper>
                                 </data>                                
                                 <data>
-                                    <src>${basedir}/src/deb/etc</src>
+                                    <src>${basedir}/src/deb/etc/init.d</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc</prefix>
+                                        <prefix>/etc/init.d</prefix>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <src>${basedir}/src/deb/etc/unifiedviews</src>
+                                    <type>directory</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/unifiedviews</prefix>
+                                        <user>tomcat7</user>
+                                        <group>tomcat7</group>
                                     </mapper>
                                 </data>
                                 <!-- create folders cache, log and tmp forunifiedviews -->

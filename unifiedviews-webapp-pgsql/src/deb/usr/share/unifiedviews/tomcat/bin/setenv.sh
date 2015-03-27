@@ -1,0 +1,1 @@
+CATALINA_OPTS=" -DconfigFileLocation=/etc/unifiedviews/frontend-config.properties"

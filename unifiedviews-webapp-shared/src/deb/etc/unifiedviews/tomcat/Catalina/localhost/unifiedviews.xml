@@ -3,6 +3,6 @@
 -->
 
 <Context path="/unifiedviews" docBase="/usr/share/unifiedviews/frontend"
-   debug="0" privileged="false" allowLinking="true" crossContext="false">
+  privileged="false" allowLinking="true" crossContext="false">
  
 </Context>
