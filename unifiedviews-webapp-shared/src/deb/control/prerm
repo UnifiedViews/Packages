@@ -19,8 +19,8 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-    if [ -e /etc/init.d/tomcat7 ] ; then 
-        service tomcat7 stop 
+    if [ -e /etc/init.d/unifiedviews-frontend ] ; then 
+        service unifiedviews-frontend stop 
     fi 
       
     ;;
