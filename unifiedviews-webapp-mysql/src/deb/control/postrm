@@ -21,12 +21,8 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-    if [ -d /var/lib/tomcat7/webapps/unifiedviews ] ; then 
-        rm -rf /var/lib/tomcat7/webapps/unifiedviews
-	fi
-    
-    if [ -e /etc/init.d/tomcat7 ] ; then 
-        service tomcat7 start 
+    if [ -e /etc/init.d/unifiedviews-frontend ] ; then 
+        service unifiedviews-frontend start
     fi 
 
     
