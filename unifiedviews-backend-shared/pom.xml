@@ -84,7 +84,7 @@
 
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews</prefix>
+                                        <prefix>/usr/share/unifiedviews/backend</prefix>
                                     </mapper>
                                 </data>
                                 <data>
@@ -92,7 +92,7 @@
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews/lib</prefix>
+                                        <prefix>/usr/share/unifiedviews/backend/lib</prefix>
                                     </mapper>
                                 </data>
                                 <data>
