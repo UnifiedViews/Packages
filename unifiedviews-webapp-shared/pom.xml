@@ -118,8 +118,8 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/unifiedviews</prefix>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                                 <!-- create folders cache, log and tmp for unifiedviews -->
@@ -139,8 +139,8 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                                 <!-- create link /usr/share/unifiedviews/logs -> for /var/log/unifiedviews/ -->
@@ -151,8 +151,8 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                                 <!-- create link /usr/share/unifiedviews/work ->  /var/cache/unifiedviews/ -->
@@ -163,8 +163,8 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                                 <!-- create link /usr/share/unifiedviews/temp ->  var/tmp/unifiedviews -->
@@ -175,8 +175,8 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>                                
                             </dataSet>

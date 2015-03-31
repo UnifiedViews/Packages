@@ -35,36 +35,43 @@ set_java() {
 }
 
 
+
+
+create_credentials() {
+  echo ">>> create_credentials"
+  if ! id unifiedviews > /dev/null 2>&1 ; then
+    adduser  --group  --system --no-create-home --disabled-password --home /usr/share/unifiedviews unifiedviews
+  fi
+  echo "<<< create_credentials"
+}
+
+
 prepare_dir() { 
     mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews/backend
+    chown unifiedviews:unifiedviews /var/log/unifiedviews/backend
     
     mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews /var/log/unifiedviews/backend
+    chown unifiedviews:unifiedviews /var/log/unifiedviews /var/log/unifiedviews/backend
 
     mkdir -p /var/lib/unifiedviews/backend/working
-    chown tomcat7:tomcat7  /var/lib/unifiedviews/backend  /var/lib/unifiedviews/backend/working
+    chown unifiedviews:unifiedviews  /var/lib/unifiedviews/backend  /var/lib/unifiedviews/backend/working
 
     mkdir -p /var/lib/unifiedviews/target
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target /var/lib/unifiedviews/target
+    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target /var/lib/unifiedviews/target
 
     mkdir -p /var/lib/unifiedviews/target/
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/backend/working
+    chown unifiedviews:unifiedviews /var/lib/unifiedviews/backend/working
     
-    mkdir -p ~tomcat7/.eclipse
-    chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
+    mkdir -p ~unifiedviews/.eclipse
+    chown -R unifiedviews:unifiedviews ~unifiedviews/.eclipse
 
-    chown tomcat7:tomcat7 /usr/share/tomcat7
+    chown unifiedviews:unifiedviews /usr/share/unifiedviews
     
     mkdir -p /var/lib/unifiedviews/target/lib
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib
+    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target/lib
     
     mkdir -p /var/lib/unifiedviews/target/dpu
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/dpu
-    
-    if [ -e "/var/www/dump/" ]; then
-        chown -R tomcat7:tomcat7 /var/www/dump/ 
-    fi
+    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target/dpu
     
 }
 
@@ -72,6 +79,7 @@ prepare_dir() {
 case "$1" in
   configure)
     set_java
+    create_credentials
     prepare_dir
   ;;
 

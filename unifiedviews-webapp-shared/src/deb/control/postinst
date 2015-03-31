@@ -20,16 +20,16 @@ set -e
 
 prepare_dir() {
     mkdir -p /var/log/unifiedviews/frontend
-    chown tomcat7 /var/log/unifiedviews/frontend
+    chown unifiedviews /var/log/unifiedviews/frontend
     mkdir -p /usr/share/unifiedviews/webapp
-    chown tomcat7 -R /usr/share/unifiedviews/webapp
+    chown unifiedviews -R /usr/share/unifiedviews/webapp
     mkdir -p /usr/share/unifiedviews/master
-    chown tomcat7 -R /usr/share/unifiedviews/master
+    chown unifiedviews -R /usr/share/unifiedviews/master
     chmod +x  /etc/init.d/unifiedviews-frontend
-    chown  tomcat7 /var/cache/unifiedviews
-    chown  tomcat7 /var/tmp/unifiedviews
-    chown  tomcat7 /var/log/unifiedviews
-    chown  tomcat7 /usr/share/unifiedviews/tomcat
+    chown  unifiedviews /var/cache/unifiedviews
+    chown  unifiedviews /var/tmp/unifiedviews
+    chown  unifiedviews /var/log/unifiedviews
+    chown  unifiedviews /usr/share/unifiedviews/tomcat
 }
 
 case "$1" in

@@ -52,7 +52,7 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Tomcat 7 as this user ID and group ID
-TOMCAT7_USER=tomcat7
+TOMCAT7_USER=unifiedviews
 TOMCAT7_GROUP=nogroup
 
 # this is a work-around until there is a suitable runtime replacement 
