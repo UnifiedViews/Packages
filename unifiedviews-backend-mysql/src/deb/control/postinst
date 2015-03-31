@@ -100,7 +100,7 @@ db_configure() {
     echo " >>> db_configure"
     DB_NAME=unifiedviews
     # if database unifiedviews is not exist
-    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use $DB_NAME'; then
+    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use '$DB_NAME''; then
         echo "create database if not exists $DB_NAME;" | mysql --password=$ROOT_PW
         echo "created database: $DB_NAME"
         # create a user if not exists
