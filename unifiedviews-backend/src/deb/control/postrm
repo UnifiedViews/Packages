@@ -29,9 +29,7 @@ case "$1" in
  
     purge)
     # logs
-    if [ -d /var/log/unifiedviews ] ; then 
-	    rm -rf /var/log/unifiedviews
-	fi
+   
   
     ;;
     
