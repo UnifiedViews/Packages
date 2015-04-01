@@ -110,6 +110,7 @@
                                     <paths>
                                         <path>/usr/share/unifiedviews/.eclipse</path>
                                         <path>/var/log/unifiedviews/backend</path>
+                                        <path>/var/lib/unifiedviews/working</path>
                                     </paths>
                                     <mapper>
                                         <type>perm</type>
@@ -135,17 +136,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/var/lib/unifiedviews/target</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
-                                    </mapper>
-                                </data>
-                                <!-- unifiedviews-backend working directory-->
-                                <data>
-                                    <src>${basedir}/src/deb/var/lib/unifiedviews/working</src>
-                                    <type>directory</type>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/var/lib/unifiedviews/working</prefix>
                                         <user>unifiedviews</user>
                                         <group>unifiedviews</group>
                                     </mapper>
