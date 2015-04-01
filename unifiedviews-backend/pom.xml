@@ -77,7 +77,7 @@
                                     <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc/unifiedviews/</prefix>
+                                        <prefix>/etc/unifiedviews</prefix>
                                         <user>unifiedviews</user>
                                         <group>unifiedviews</group>
                                     </mapper>
