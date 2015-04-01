@@ -30,56 +30,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/tmp</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>          
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>CHANGES_template.txt</include>
-                                    </includes>
-                                </resource>
-                            </resources>              
-                        </configuration>            
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>rename-file</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>rename</goal>
-                        </goals>
-                        <configuration>
-                            <sourceFile>${basedir}/target/tmp/CHANGES_template.txt</sourceFile>
-                            <destinationFile>${basedir}/target/CHANGES.txt</destinationFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>    
-        </plugins>
-    </build>        
-
 
 
 
