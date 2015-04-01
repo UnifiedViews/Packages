@@ -63,7 +63,7 @@ UNIFIEDVIEWS_SCRIPT="/usr/sbin/run_unifiedviews_backend"
 UNIFIEDVIEWS_PROG="${NAME}"
         
 # Define the unifiedviews username
-UNIFIEDVIEWS_USER="${UNIFIEDVIEWS_USER:-uv}"
+UNIFIEDVIEWS_USER="${UNIFIEDVIEWS_USER:-unifiedviews}"
 
 # Define the unifiedviews group
 UNIFIEDVIEWS_GROUP="${UNIFIEDVIEWS_GROUP:-`id -gn $UNIFIEDVIEWS_USER`}"
