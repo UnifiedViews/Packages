@@ -35,22 +35,9 @@ set_java() {
 }
 
 
-
-
-create_credentials() {
-  echo ">>> create_credentials"
-  if ! id unifiedviews > /dev/null 2>&1 ; then
-    adduser  --group  --system --no-create-home --disabled-password --home /usr/share/unifiedviews unifiedviews
-  fi
-  echo "<<< create_credentials"
-}
-
-
-
 case "$1" in
   configure)
     set_java
-    create_credentials
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
