@@ -46,21 +46,37 @@
                             <deb>${debian-package-name}</deb>
                             <dataSet>
                                 <data>
-                                    <src>${basedir}/src/deb/usr</src>
-                                    <type>directory</type>
+                                    <src>${basedir}/src/deb/usr/sbin/run_unifiedviews_backend</src>
+                                    <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr</prefix>
+                                        <prefix>/usr/sbin</prefix>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
+                                        <filemode>744</filemode>
                                     </mapper>
                                 </data>
                                 <data>
-                                    <src>${basedir}/src/deb/etc</src>
-                                    <type>directory</type>
+                                    <src>${basedir}/src/deb/etc/unifiedviews/unifiedviews.conf</src>
+                                    <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc</prefix>
+                                        <prefix>/etc/unifiedviews/</prefix>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
+                                <data>
+                                    <src>${basedir}/src/deb/etc/init.d/unifiedviews-backend</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/init.d</prefix>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
+                                        <filemode>744</filemode>
+                                    </mapper>
+                                </data>                                
                             </dataSet>
                         </configuration>
                     </execution>
