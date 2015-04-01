@@ -46,41 +46,11 @@ create_credentials() {
 }
 
 
-prepare_dir() { 
-    mkdir -p /var/log/unifiedviews/backend
-    chown unifiedviews:unifiedviews /var/log/unifiedviews/backend
-    
-    mkdir -p /var/log/unifiedviews/backend
-    chown unifiedviews:unifiedviews /var/log/unifiedviews /var/log/unifiedviews/backend
-
-    mkdir -p /var/lib/unifiedviews/backend/working
-    chown unifiedviews:unifiedviews  /var/lib/unifiedviews/backend  /var/lib/unifiedviews/backend/working
-
-    mkdir -p /var/lib/unifiedviews/target
-    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target /var/lib/unifiedviews/target
-
-    mkdir -p /var/lib/unifiedviews/target/
-    chown unifiedviews:unifiedviews /var/lib/unifiedviews/backend/working
-    
-    mkdir -p ~unifiedviews/.eclipse
-    chown -R unifiedviews:unifiedviews ~unifiedviews/.eclipse
-
-    chown unifiedviews:unifiedviews /usr/share/unifiedviews
-    
-    mkdir -p /var/lib/unifiedviews/target/lib
-    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target/lib
-    
-    mkdir -p /var/lib/unifiedviews/target/dpu
-    chown unifiedviews:unifiedviews /var/lib/unifiedviews/target/dpu
-    
-}
-
 
 case "$1" in
   configure)
     set_java
     create_credentials
-    prepare_dir
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
