@@ -27,20 +27,10 @@ service_backend_restart() {
     fi
 }
 
-prepare_dir() {
-    chown tomcat7:tomcat7 /usr/share/unifiedviews
-    chmod g+w /usr/share/unifiedviews
-    chmod +x  /usr/sbin/run_unifiedviews_backend
-    chown tomcat7:tomcat7 /usr/sbin/run_unifiedviews_backend
-    chmod +x  /etc/init.d/unifiedviews-backend
-    mkdir -p /usr/share/unifiedviews
-    chown tomcat7:tomcat7 /usr/share/unifiedviews
-}
 
 case "$1" in
     configure)
-    prepare_dir
-    service_backend_restart
+        service_backend_restart
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

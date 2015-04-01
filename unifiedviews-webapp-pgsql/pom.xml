@@ -30,15 +30,16 @@
                         <configuration>
                             <deb>${debian-package-name}</deb>
                             <dataSet>
+                                <!-- unifiedviews frontend configuration-->
                                 <data>
-                                    <src>${basedir}/src/deb/etc</src>
-                                    <type>directory</type>
+                                    <src>${basedir}/src/deb/etc/unifiedviews/frontend-config.properties</src>
+                                    <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc</prefix>
+                                        <prefix>/etc/unifiedviews</prefix>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                                 <!-- create setenv.sh in directory bin-->
@@ -48,8 +49,8 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/tomcat/bin</prefix>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <user>unifiedviews</user>
+                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>                  
                                 <!-- Symbolic links-->
