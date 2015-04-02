@@ -21,6 +21,8 @@ create_credentials() {
   echo ">>> create_credentials"
   if ! id unifiedviews > /dev/null 2>&1 ; then
     adduser  --group  --system  --disabled-password --home /usr/share/unifiedviews unifiedviews
+  else 
+    echo "user: unifiedviews exists"
   fi
   echo "<<< create_credentials"
 }
