@@ -68,11 +68,11 @@ db_up() {
 }
 
 service_backend_restart() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
+
+  if [ -x "/etc/init.d/unifiedviews-backend" ]; then
+    invoke-rc.d unifiedviews-backend restart || true
+  fi    
+
 }
 
 db_configure() {
