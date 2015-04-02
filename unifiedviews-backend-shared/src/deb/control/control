@@ -5,7 +5,7 @@ Priority: extra
 Architecture: all
 Maintainer: jmc@eea.sk
 Depends: openjdk-7-jre-headless, tomcat7, debconf (>= 0.5)
-Pre-Depends: unifiedviews-user
+Pre-Depends: unifiedviews-core
 Replaces: unifiedviews-backend (<= 1.5.0-1)
 Breaks: unifiedviews-backend (<= 1.5.0-1)
 Description: The unifiedviews's backend binaries. 
