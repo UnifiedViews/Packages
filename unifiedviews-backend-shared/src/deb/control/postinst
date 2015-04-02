@@ -33,11 +33,28 @@ set_java() {
     echo  " - ok"
  fi
 }
+create_credentials() {
+  echo ">>> create_credentials"
+  if ! id unifiedviews > /dev/null 2>&1 ; then
+    adduser  --group  --system  --disabled-password --home /usr/share/unifiedviews unifiedviews
+  else 
+    echo "user: unifiedviews exists"
+  fi
+  echo "<<< create_credentials"
+}
 
+fix_perms() {
+    chown -R unifiedviews:unifiedviews /etc/unifiedviews
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/log/unifiedviews
+	chown -R unifiedviews:unifiedviews /var/lib/unifiedviews
+}
 
 case "$1" in
   configure)
     set_java
+    create_credentials
+    fix_perms
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

@@ -149,14 +149,20 @@ db_configure() {
     echo " <<< db_configure"
 }
 
+fix_perms() {
+    chown -R unifiedviews:unifiedviews /etc/unifiedviews
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+}
 
 case "$1" in
   configure)
     db_creadentials
+    fix_perms
     db_up
     set_java
     db_configure
     db_stop
+
     
   ;;
 

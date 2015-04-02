@@ -52,9 +52,7 @@
                                     <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc/unifiedviews</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
+                                        <prefix>/etc/unifiedviews</prefix>     
                                     </mapper>
                                 </data>      
                                 <!-- pgsql db scripts-->
@@ -64,8 +62,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/pgsql</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                             </dataSet>

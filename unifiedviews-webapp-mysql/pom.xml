@@ -37,9 +37,7 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/unifiedviews</prefix>
-                                        <type>perm</type>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
+                                        <type>perm</type>    
                                     </mapper>
                                 </data>
                                 <!-- create setenv.sh in directory bin-->
@@ -49,8 +47,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/tomcat/bin</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>                  
                                 <!-- Symbolic links-->

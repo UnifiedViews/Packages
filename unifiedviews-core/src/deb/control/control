@@ -1,8 +1,0 @@
-Package: unifiedviews-core
-Version: [[debian-package-version]]
-Section: java
-Priority: extra
-Architecture: all
-Maintainer: jmc@eea.sk
-Depends: debconf (>= 0.5)
-Description: Unifiedviews core - create user for unifiedviews

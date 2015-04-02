@@ -52,10 +52,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/init.d</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
-                                        <!-- set user executable-->
-                                        <filemode>744</filemode>
                                     </mapper>
                                 </data>     
                                 <!-- part of init.d script for unifiedviews-backend -->
@@ -65,10 +61,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/sbin</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
-                                        <!-- set user executable-->
-                                        <filemode>744</filemode>
                                     </mapper>
                                 </data>
                                 <!-- configuration for unifiedviews-backend -->
@@ -78,8 +70,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/unifiedviews</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                             </dataSet>
