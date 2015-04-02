@@ -67,13 +67,6 @@ db_up() {
   echo " Done"
 }
 
-service_backend_restart() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
-}
 
 db_configure() {
     dbname="$1"
@@ -135,7 +128,6 @@ case "$1" in
     db_up
     set_java
     db_configure unifiedviews $DB_USER $DB_PASS
-    service_backend_restart
     db_stop
     
   ;;
