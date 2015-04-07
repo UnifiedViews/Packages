@@ -111,6 +111,14 @@ db_configure() {
         su - postgres -c "psql -d ${dbname}" < \
         /usr/share/unifiedviews/pgsql/1.6.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
      fi
+     
+     
+     if [ "$version" = "001.006.000" ]
+         then
+       # set db schema version
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/2.0.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+     fi     
     
 
     # update backend config
