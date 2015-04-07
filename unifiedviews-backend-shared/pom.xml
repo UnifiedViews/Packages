@@ -105,7 +105,7 @@
                                     <type>template</type>
                                     <paths>
                                         <path>/var/log/unifiedviews/backend</path>
-                                        <path>/var/lib/unifiedviews/working</path>
+                                        <path>/var/cache/unifiedviews/working</path>
                                     </paths>
                                     <mapper>
                                         <type>perm</type> 
@@ -122,11 +122,11 @@
                                 </data>                                
                                 <!-- unifiedviews-backend files: lib and dpu -->
                                 <data>
-                                    <src>${basedir}/src/deb/var/lib/unifiedviews/target</src>
+                                    <src>${basedir}/src/deb/var/lib/unifiedviews/common</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/var/lib/unifiedviews/target</prefix>
+                                        <prefix>/var/lib/unifiedviews/common</prefix>
                                     </mapper>
                                 </data>
                             </dataSet>
