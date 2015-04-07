@@ -104,7 +104,6 @@
                                 <data>
                                     <type>template</type>
                                     <paths>
-                                        <path>/usr/share/unifiedviews/.eclipse</path>
                                         <path>/var/log/unifiedviews/backend</path>
                                         <path>/var/lib/unifiedviews/working</path>
                                     </paths>
