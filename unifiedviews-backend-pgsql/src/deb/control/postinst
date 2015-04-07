@@ -124,8 +124,8 @@ db_configure() {
 
 
 fix_perms() {
-    chown -R unifiedviews:unifiedviews /etc/unifiedviews
-    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+    chown unifiedviews:unifiedviews /etc/unifiedviews/backend-config.properties
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/pgsql
 }
 
 

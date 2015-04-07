@@ -18,7 +18,7 @@ set -e
 # the debian-policy package
 
 fix_perms() {
-    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/master
     chown -R unifiedviews:unifiedviews /etc/unifiedviews
     chown -R unifiedviews:unifiedviews /var/cache/unifiedviews
     chown -R unifiedviews:unifiedviews /var/log/unifiedviews
