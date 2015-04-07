@@ -2,10 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-UPDATE `properties` SET `value` = '002.000.000' WHERE `key` = 'UV.Core.version';
-UPDATE `properties` SET `value` = '002.000.000' WHERE `key` = 'UV.Plugin-DevEnv.version';
-
-
 ALTER TABLE `dpu_template` 
 ADD COLUMN `organization_id` INT(11) NULL DEFAULT NULL AFTER `user_id`,
 ADD INDEX `ix_DPU_TEMPLATE_organization_id` (`organization_id` ASC);
@@ -269,3 +265,7 @@ DELETE FROM `usr_user_role`;
 INSERT INTO `usr_user_role` VALUES ((select id from usr_user where username='admin'),(select id from role where name='Administrator'));
 INSERT INTO `usr_user_role` VALUES ((select id from usr_user where username='admin'),(select id from role where name='User'));
 INSERT INTO `usr_user_role` VALUES ((select id from usr_user where username='user'),(select id from role where name='User'));
+
+-- Update version.
+UPDATE `properties` SET `value` = '002.000.000' WHERE `key` = 'UV.Core.version';
+UPDATE `properties` SET `value` = '002.000.000' WHERE `key` = 'UV.Plugin-DevEnv.version';
