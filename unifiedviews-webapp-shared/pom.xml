@@ -149,11 +149,11 @@
                                         <type>perm</type>
                                     </mapper>
                                 </data>
-                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/logs -> for /var/log/unifiedviews/ -->
+                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/logs -> for /var/log/unifiedviews/frontend -->
                                 <data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/tomcat/logs</linkName>
-                                    <linkTarget>/var/log/unifiedviews/</linkTarget>
+                                    <linkTarget>/var/log/unifiedviews/frontend</linkTarget>
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
