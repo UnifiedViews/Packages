@@ -105,7 +105,7 @@
                                     <type>template</type>
                                     <paths>
                                         <path>/var/log/unifiedviews/backend</path>
-                                        <path>/var/cache/unifiedviews/working</path>
+                                        <path>/var/cache/unifiedviews/backend/working</path>
                                     </paths>
                                     <mapper>
                                         <type>perm</type> 
