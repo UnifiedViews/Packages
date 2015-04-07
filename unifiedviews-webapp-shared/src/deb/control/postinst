@@ -17,24 +17,18 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-
-prepare_dir() {
-    mkdir -p /var/log/unifiedviews/frontend
-    chown tomcat7 /var/log/unifiedviews/frontend
-    mkdir -p /usr/share/unifiedviews/webapp
-    chown tomcat7 -R /usr/share/unifiedviews/webapp
-    mkdir -p /usr/share/unifiedviews/master
-    chown tomcat7 -R /usr/share/unifiedviews/master
-    chmod +x  /etc/init.d/unifiedviews-frontend
-    chown  tomcat7 /var/cache/unifiedviews
-    chown  tomcat7 /var/tmp/unifiedviews
-    chown  tomcat7 /var/log/unifiedviews
-    chown  tomcat7 /usr/share/unifiedviews/tomcat
+fix_perms() {
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/master
+    chown -R unifiedviews:unifiedviews /etc/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/cache/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/log/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/tmp/unifiedviews
+    chmod +x unifiedviews:unifiedviews /etc/init.d/unifiedviews-frontend || true
 }
 
 case "$1" in
     configure)
-    prepare_dir
+    fix_perms
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

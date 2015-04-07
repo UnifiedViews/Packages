@@ -6,13 +6,13 @@
     <parent>
         <groupId>eu.unifiedviews.packages</groupId>
         <artifactId>unifiedviews-packages</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
     </parent>
 
     <groupId>eu.unifiedviews.packages</groupId>
     <artifactId>unifiedviews-webapp-mysql</artifactId>
     <name>unifiedviews-webapp-mysql</name>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.0</version>
     <description/>
 
     <build>
@@ -20,7 +20,7 @@
             <plugin>
                 <artifactId>jdeb</artifactId>
                 <groupId>org.vafer</groupId>
-                <version>1.3</version>
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -30,12 +30,14 @@
                         <configuration>
                             <deb>${debian-package-name}</deb>
                             <dataSet>
+                                <!-- unifiedviews frontend configuration-->
                                 <data>
-                                    <src>${basedir}/src/deb/etc</src>
-                                    <type>directory</type>
+                                    <src>${basedir}/src/deb/etc/unifiedviews/frontend-config.properties</src>
+                                    <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/etc</prefix>
+                                        <prefix>/etc/unifiedviews</prefix>
+                                        <type>perm</type>    
                                     </mapper>
                                 </data>
                                 <!-- create setenv.sh in directory bin-->
@@ -45,10 +47,8 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/tomcat/bin</prefix>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
                                     </mapper>
-                                </data>           
+                                </data>                  
                                 <!-- Symbolic links-->
                                 <data>
                                     <type>link</type>

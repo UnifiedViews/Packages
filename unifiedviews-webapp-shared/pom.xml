@@ -6,13 +6,13 @@
     <parent>
         <groupId>eu.unifiedviews.packages</groupId>
         <artifactId>unifiedviews-packages</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
     </parent>
 
     <groupId>eu.unifiedviews.packages</groupId>
     <artifactId>unifiedviews-webapp-shared</artifactId>
     <name>unifiedviews-webapp-shared</name>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.0</version>
     <description/>
 
     <dependencies>
@@ -78,7 +78,7 @@
             <plugin>
                 <artifactId>jdeb</artifactId>
                 <groupId>org.vafer</groupId>
-                <version>1.3</version>
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -88,50 +88,58 @@
                         <configuration>
                             <deb>${debian-package-name}</deb>
                             <dataSet>
+                                <!-- unifiedviews-frontend unziped war-->
                                 <data>
                                     <src>${project.build.directory}/frontend</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews/frontend</prefix>
+                                        <prefix>/usr/share/unifiedviews/frontend</prefix>                           
                                     </mapper>
                                 </data>
+                                <!-- unifiedviews-frontend unziped master - rest api-->
                                 <data>
                                     <src>${project.build.directory}/master</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr/share/unifiedviews/master</prefix>
+                                        <prefix>/usr/share/unifiedviews/master</prefix> 
                                     </mapper>
                                 </data>                                
+                                <!-- unifiedviews-frontend init.d script -->
                                 <data>
-                                    <src>${basedir}/src/deb/etc/init.d</src>
-                                    <type>directory</type>
+                                    <src>${basedir}/src/deb/etc/init.d/unifiedviews-frontend</src>
+                                    <type>file</type>
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/init.d</prefix>
                                     </mapper>
                                 </data>
+                                <!-- unifiedviews-frontend sample configuration and catalina base -->
                                 <data>
-                                    <src>${basedir}/src/deb/etc/unifiedviews</src>
+                                    <src>${basedir}/src/deb/etc/unifiedviews/</src>
                                     <type>directory</type>
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/unifiedviews</prefix>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
                                     </mapper>
                                 </data>
-                                <!-- create folders cache, log and tmp for unifiedviews -->
+                                <!-- prepare folders folders cache, log and tmp for unifiedviews -->
                                 <data>
                                     <type>template</type>
                                     <paths>
-                                        <path>/var/cache/unifiedviews</path>
-                                        <path>/var/log/unifiedviews</path>
+                                        <path>/var/cache/unifiedviews/</path>
+                                        <path>/var/log/unifiedviews/frontend</path>
+                                        <path>/usr/share/unifiedviews/webapp</path>
                                         <path>/var/tmp/unifiedviews</path>
                                         <path>/usr/share/unifiedviews/tomcat</path>
                                     </paths>
+                                    <mapper>
+                                        <type>perm</type>
+                                    </mapper>
                                 </data>          
+
+                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/tomcat/conf -> for//etc/unifiedviews/tomcat -->
                                 <data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/tomcat/conf</linkName>
@@ -139,11 +147,9 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
                                     </mapper>
                                 </data>
-                                <!-- create link /usr/share/unifiedviews/logs -> for /var/log/unifiedviews/ -->
+                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/logs -> for /var/log/unifiedviews/ -->
                                 <data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/tomcat/logs</linkName>
@@ -151,32 +157,26 @@
                                     <symlink>true</symlink>
                                     <mapper>
                                         <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
                                     </mapper>
                                 </data>
-                                <!-- create link /usr/share/unifiedviews/work ->  /var/cache/unifiedviews/ -->
+                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/work ->  /var/cache/unifiedviews/ -->
                                 <data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/tomcat/work</linkName>
                                     <linkTarget>/var/cache/unifiedviews/</linkTarget>
                                     <symlink>true</symlink>
                                     <mapper>
-                                        <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <type>perm</type>     
                                     </mapper>
                                 </data>
-                                <!-- create link /usr/share/unifiedviews/temp ->  var/tmp/unifiedviews -->
+                                <!-- unifiedviews-frontend tomcat: create link /usr/share/unifiedviews/temp ->  var/tmp/unifiedviews -->
                                 <data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/tomcat/temp</linkName>
                                     <linkTarget>/var/tmp/unifiedviews</linkTarget>
                                     <symlink>true</symlink>
                                     <mapper>
-                                        <type>perm</type>
-                                        <user>tomcat7</user>
-                                        <group>tomcat7</group>
+                                        <type>perm</type>    
                                     </mapper>
                                 </data>                                
                             </dataSet>

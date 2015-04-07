@@ -67,13 +67,6 @@ db_up() {
   echo " Done"
 }
 
-service_backend_restart() {
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
-}
 
 db_configure() {
     dbname="$1"
@@ -118,6 +111,14 @@ db_configure() {
         su - postgres -c "psql -d ${dbname}" < \
         /usr/share/unifiedviews/pgsql/1.6.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
      fi
+     
+     
+     if [ "$version" = "001.006.000" ]
+         then
+       # set db schema version
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/2.0.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+     fi     
     
 
     # update backend config
@@ -129,15 +130,22 @@ db_configure() {
     /etc/unifiedviews/backend-config.properties
 }
 
+
+fix_perms() {
+    chown unifiedviews:unifiedviews /etc/unifiedviews/backend-config.properties
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/pgsql
+}
+
+
 case "$1" in
   configure)
     db_creadentials  
+    fix_perms
     db_up
     set_java
     db_configure unifiedviews $DB_USER $DB_PASS
-    service_backend_restart
     db_stop
-    
+  
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

@@ -10,7 +10,7 @@
 # Additional improvements by Jason Brittain <jason.brittain@mulesoft.com>.
 #
 ### BEGIN INIT INFO
-# Provides:          unifiedviews
+# Provides:          unifiedviews-frontend
 # Required-Start:    $local_fs $remote_fs $network
 # Required-Stop:     $local_fs $remote_fs $network
 # Should-Start:      $named
@@ -24,8 +24,8 @@
 set -e
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-NAME=unifiedviews
-DESC="Tomcat servlet engine"
+NAME=unifiedviews-frontend
+DESC="Unifiedviews-frontend"
 DEFAULT=/etc/default/$NAME
 JVM_TMP=/tmp/tomcat7-$NAME-tmp
 
@@ -52,8 +52,8 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Tomcat 7 as this user ID and group ID
-TOMCAT7_USER=tomcat7
-TOMCAT7_GROUP=nogroup
+TOMCAT7_USER=unifiedviews
+TOMCAT7_GROUP=unifiedviews
 
 # this is a work-around until there is a suitable runtime replacement 
 # for dpkg-architecture for arch:all packages
@@ -94,7 +94,7 @@ export JAVA_HOME
 CATALINA_HOME=/usr/share/tomcat7
 
 # Directory for per-instance configuration files and webapps
-CATALINA_BASE=/usr/share/$NAME/tomcat
+CATALINA_BASE=/usr/share/unifiedviews/tomcat
 
 # Use the Java security manager? (yes/no)
 TOMCAT7_SECURITY=no

@@ -29,15 +29,8 @@ case "$1" in
     ;;
  
     purge)
-    # logs
-    if [ -d /var/log/unifiedviews/frontend ] ; then 
-	    rm -rf /var/log/unifiedviews/frontend
-	fi
-    
-    if [ -d  /usr/share/unifiedviews/webapp ] ; then
-        rm -rf /usr/share/unifiedviews/webapp
-     
-    fi
+      
+
     ;;
 
     upgrade|failed-upgrade|abort-upgrade)

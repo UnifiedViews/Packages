@@ -34,6 +34,7 @@ service_restart() {
 case "$1" in
     configure)
     service_restart
+    
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

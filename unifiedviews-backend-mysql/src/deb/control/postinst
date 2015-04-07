@@ -84,23 +84,12 @@ db_up() {
   echo " <<< db_up"
 }
 
-service_backend_restart() {
-   echo " >>> service_backend_restart"
-
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-        invoke-rc.d unifiedviews-backend restart || true
-    else
-        service unifiedviews-backend restart || true
-    fi
-
-    echo " <<< service_backend_restart"
-}
 
 db_configure() {
     echo " >>> db_configure"
     DB_NAME=unifiedviews
     # if database unifiedviews is not exist
-    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use $DB_NAME'; then
+    if ! mysql -u $DBA_USER --password=$DBA_PASS -e 'use '$DB_NAME''; then
         echo "create database if not exists $DB_NAME;" | mysql --password=$ROOT_PW
         echo "created database: $DB_NAME"
         # create a user if not exists
@@ -114,8 +103,6 @@ db_configure() {
         /usr/share/unifiedviews/mysql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
         mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
         /usr/share/unifiedviews/mysql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
-        /usr/share/unifiedviews/mysql/core-plugin.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
     version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
@@ -142,6 +129,14 @@ db_configure() {
        /usr/share/unifiedviews/mysql/1.6.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
     fi    
     
+    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
+    if [ "$version" = "001.006.000" ]
+    then
+       # set db schema version
+       mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
+       /usr/share/unifiedviews/mysql/2.0.0-update.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+    fi        
+    
     
     # update backend config
     sed --in-place \
@@ -154,15 +149,20 @@ db_configure() {
     echo " <<< db_configure"
 }
 
+fix_perms() {
+    chown unifiedviews:unifiedviews /etc/unifiedviews/backend-config.properties
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/mysql
+}
 
 case "$1" in
   configure)
     db_creadentials
+    fix_perms
     db_up
     set_java
     db_configure
-    service_backend_restart
     db_stop
+
     
   ;;
 

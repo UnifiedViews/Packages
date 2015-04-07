@@ -1,16 +1,114 @@
-﻿delete from "properties";
-delete from "sch_email";
-delete from "usr_user_role";
-delete from "sch_email";
-delete from "sch_usr_notification";
-delete from "sch_usr_notification_email";
-delete from "usr_user";
-delete from "runtime_properties";
-INSERT INTO "properties" VALUES ('UV.Core.version','002.000.000'),('UV.Plugin-DevEnv.version','002.000.000');
-INSERT INTO "sch_email" VALUES (nextval('seq_sch_email'),'admin@example.com'),(nextval('seq_sch_email'),'user@example.com');
+
+DROP VIEW exec_view;
+
+DROP VIEW pipeline_view;
+
+CREATE SEQUENCE seq_organization
+	START WITH 1
+	INCREMENT BY 1
+	NO MAXVALUE
+	NO MINVALUE
+	CACHE 1;
+
+CREATE SEQUENCE seq_permission
+	START WITH 1
+	INCREMENT BY 1
+	NO MAXVALUE
+	NO MINVALUE
+	CACHE 1;
+
+CREATE SEQUENCE seq_role
+	START WITH 1
+	INCREMENT BY 1
+	NO MAXVALUE
+	NO MINVALUE
+	CACHE 1;
+
+CREATE TABLE organization (
+	id integer NOT NULL,
+	name character varying(256) NOT NULL
+);
+
+CREATE TABLE permission (
+	id integer NOT NULL,
+	name character varying(142) NOT NULL,
+	rwonly boolean
+);
+
+CREATE TABLE "role" (
+	id integer NOT NULL,
+	name character varying(142) NOT NULL
+);
+
+CREATE TABLE user_role_permission (
+	role_id integer NOT NULL,
+	permission_id integer NOT NULL
+);
+
+CREATE TABLE usr_extuser (
+	id_usr integer NOT NULL,
+	id_extuser character varying(256) NOT NULL
+);
+
+ALTER TABLE exec_pipeline
+	ADD COLUMN organization_id integer;
+
+ALTER TABLE exec_schedule
+	ADD COLUMN organization_id integer;
+
+ALTER TABLE ppl_model
+	ADD COLUMN organization_id integer;
+
+ALTER TABLE usr_user
+	ALTER COLUMN username TYPE character varying(256) /* TYPE change - table: usr_user original: character varying(25) new: character varying(256) */,
+	ALTER COLUMN u_password TYPE character(256) /* TYPE change - table: usr_user original: character(142) new: character(256) */,
+	ALTER COLUMN full_name TYPE character varying(256) /* TYPE change - table: usr_user original: character varying(55) new: character varying(256) */;
+
+ALTER TABLE organization
+	ADD CONSTRAINT organization_pkey PRIMARY KEY (id);
+
+ALTER TABLE permission
+	ADD CONSTRAINT permission_pkey PRIMARY KEY (id);
+
+ALTER TABLE "role"
+	ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+ALTER TABLE user_role_permission
+	ADD CONSTRAINT user_role_permission_pkey PRIMARY KEY (role_id, permission_id);
+
+ALTER TABLE usr_extuser
+	ADD CONSTRAINT usr_extuser_pkey PRIMARY KEY (id_usr, id_extuser);
+
+ALTER TABLE exec_pipeline
+	ADD CONSTRAINT exec_pipeline_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organization(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE exec_schedule
+	ADD CONSTRAINT exec_schedule_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organization(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE organization
+	ADD CONSTRAINT organization_name_key UNIQUE (name);
+
+ALTER TABLE ppl_model
+	ADD CONSTRAINT ppl_model_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organization(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE permission
+	ADD CONSTRAINT permission_name_key UNIQUE (name);
+
+ALTER TABLE "role"
+	ADD CONSTRAINT role_name_key UNIQUE (name);
+
+ALTER TABLE user_role_permission
+	ADD CONSTRAINT user_role_permission_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES permission(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE user_role_permission
+	ADD CONSTRAINT user_role_permission_role_id_fkey FOREIGN KEY (role_id) REFERENCES role(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE usr_extuser
+	ADD CONSTRAINT usr_extuser_id_usr_fkey FOREIGN KEY (id_usr) REFERENCES usr_user(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
 INSERT INTO "role" VALUES (nextval('seq_role'), 'Administrator'),(nextval('seq_role'),'User'); 
 
---INSERT INTO "permission" VALUES (nextval('seq_permission'), 'pipeline.definePipelineDependencies');
 INSERT INTO "permission" VALUES (nextval('seq_permission'), 'administrator', false);
 INSERT INTO "user_role_permission" values((select id from "role" where name='Administrator'), currval('seq_permission'));
 INSERT INTO "permission" VALUES (nextval('seq_permission'), 'pipeline.delete', true);
@@ -146,13 +244,59 @@ INSERT INTO "permission" VALUES (nextval('seq_permission'), 'userNotificationSet
 INSERT INTO "user_role_permission" values((select id from "role" where name='Administrator'), currval('seq_permission'));
 INSERT INTO "user_role_permission" values((select id from "role" where name='User'), currval('seq_permission'));
 
-INSERT INTO "usr_user" VALUES (nextval('seq_usr_user'),'admin',1,'100000:3069f2086098a66ec0a859ec7872b09af7866bc7ecafe2bed3ec394454056db2:b5ab4961ae8ad7775b3b568145060fabb76d7bca41c7b535887201f79ee9788a','John Admin',20);
-INSERT INTO "usr_extuser" VALUES (currval('seq_usr_user'), 'admin');
-INSERT INTO "usr_user" VALUES (nextval('seq_usr_user'),'user',2,'100000:3069f2086098a66ec0a859ec7872b09af7866bc7ecafe2bed3ec394454056db2:b5ab4961ae8ad7775b3b568145060fabb76d7bca41c7b535887201f79ee9788a','John User',20);
-INSERT INTO "usr_extuser" VALUES (currval('seq_usr_user'), 'user');
+INSERT INTO "usr_extuser" VALUES ((select id from "usr_user" where username='admin'), 'admin');
+INSERT INTO "usr_extuser" VALUES ((select id from "usr_user" where username='user'), 'user');
 
-INSERT INTO "sch_usr_notification" VALUES (nextval('seq_sch_notification'),1,1,1),(nextval('seq_sch_notification'),2,1,1);
-INSERT INTO "sch_usr_notification_email" VALUES (1,1),(2,2);
-INSERT INTO "usr_user_role" VALUES (1,1),(1,2),(2,1);
-INSERT INTO "runtime_properties" ("id", "name", "value") VALUES (nextval('seq_runtime_properties'), 'backend.scheduledPipelines.limit', '5');
-INSERT INTO "runtime_properties" ("id", "name", "value") VALUES (nextval('seq_runtime_properties'), 'run.now.pipeline.priority', '1');
+update "usr_user_role" set role_id=2 where role_id=1;
+update "usr_user_role" set role_id=1 where role_id=0;
+
+ALTER TABLE usr_user_role
+	ADD CONSTRAINT usr_user_role_role_id_fkey FOREIGN KEY (role_id) REFERENCES role(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+CREATE INDEX "ix_EXEC_PIPELINE_organization_id" ON exec_pipeline USING btree (organization_id);
+
+CREATE INDEX "ix_EXEC_SCHEDULE_organization_id" ON exec_schedule USING btree (organization_id);
+
+CREATE INDEX ix_organization_name ON organization USING btree (name);
+
+CREATE INDEX "ix_PPL_MODEL_organization_id" ON ppl_model USING btree (organization_id);
+
+CREATE INDEX ix_permission_name ON permission USING btree (name);
+
+CREATE INDEX ix_role_name ON "role" USING btree (name);
+
+CREATE VIEW exec_view AS
+	SELECT exec.id,
+    exec.status,
+    ppl.id AS pipeline_id,
+    ppl.name AS pipeline_name,
+    exec.debug_mode,
+    exec.t_start,
+    exec.t_end,
+    exec.schedule_id,
+    owner.username AS owner_name,
+    exec.stop,
+    exec.t_last_change,
+    org.name AS org_name
+   FROM (((exec_pipeline exec
+     LEFT JOIN ppl_model ppl ON ((ppl.id = exec.pipeline_id)))
+     LEFT JOIN usr_user owner ON ((owner.id = exec.owner_id)))
+     LEFT JOIN organization org ON ((exec.organization_id = org.id)));
+
+CREATE VIEW pipeline_view AS
+	SELECT ppl.id,
+    ppl.name,
+    exec.t_start,
+    exec.t_end,
+    exec.status,
+    usr.username AS usr_name,
+    org.name AS org_name,
+    ppl.visibility
+   FROM (((ppl_model ppl
+     LEFT JOIN exec_last_view exec ON ((exec.pipeline_id = ppl.id)))
+     LEFT JOIN usr_user usr ON ((ppl.user_id = usr.id)))
+     LEFT JOIN organization org ON ((ppl.organization_id = org.id)));
+
+-- Update version.
+UPDATE "properties" SET "value" = '002.000.000' WHERE "key" = 'UV.Core.version';
+UPDATE "properties" SET "value" = '002.000.000' WHERE "key" = 'UV.Plugin-DevEnv.version';
