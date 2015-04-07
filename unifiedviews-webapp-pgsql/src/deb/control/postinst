@@ -43,10 +43,15 @@ service_restart() {
     fi
 }
 
+fix_perms() {
+    chown -R unifiedviews:unifiedviews /etc/unifiedviews
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+}
 
 case "$1" in
     configure)
     db_creadentials
+    fix_perms
     service_restart
     db_stop
     ;;

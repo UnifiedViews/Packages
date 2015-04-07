@@ -54,8 +54,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/etc/unifiedviews</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>      
                                 <!-- mysql db scripts-->
@@ -65,8 +63,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/usr/share/unifiedviews/mysql</prefix>
-                                        <user>unifiedviews</user>
-                                        <group>unifiedviews</group>
                                     </mapper>
                                 </data>
                             </dataSet>

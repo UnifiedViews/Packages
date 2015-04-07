@@ -122,14 +122,22 @@ db_configure() {
     /etc/unifiedviews/backend-config.properties
 }
 
+
+fix_perms() {
+    chown unifiedviews:unifiedviews /etc/unifiedviews/backend-config.properties
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews/pgsql
+}
+
+
 case "$1" in
   configure)
     db_creadentials  
+    fix_perms
     db_up
     set_java
     db_configure unifiedviews $DB_USER $DB_PASS
     db_stop
-    
+  
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

@@ -27,9 +27,16 @@ service_backend_restart() {
     fi
 }
 
+fix_perms() {
+    chmod +x /etc/init.d/unifiedviews-backend || true
+    chown unifiedviews:unifiedviews /usr/sbin/run_unifiedviews_backend 
+    chmod +x /usr/sbin/run_unifiedviews_backend || true
+    chown unifiedviews:unifiedviews /etc/unifiedviews/unifiedviews.conf
+}
 
 case "$1" in
     configure)
+        fix_perms
         service_backend_restart
     ;;
 
