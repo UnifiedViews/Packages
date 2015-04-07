@@ -23,22 +23,52 @@
         <dependency>
             <groupId>${plugins.groupid}</groupId>
             <artifactId>uv-e-filesDownload</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-e-rdfFromSparql</artifactId>
-            <version>1.5.0</version>
+            <artifactId>uv-e-relationalFromSql</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-l-filesToVirtuoso</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
             <artifactId>uv-l-filesUpload</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-l-relationalToSql</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-filesFilter</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
             <artifactId>uv-t-filesMerger</artifactId>
-            <version>1.6.0-SNAPSHOT</version>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-filesRenamer</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-filesToRdf</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-metadata</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
@@ -47,58 +77,43 @@
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-sparql</artifactId>
-            <version>1.5.0</version>
+            <artifactId>uv-t-rdfToFiles</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-relational</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-sparqlSelect</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-tabular</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-tabularToRelational</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${plugins.groupid}</groupId>
+            <artifactId>uv-t-unzipper</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
             <artifactId>uv-t-xslt</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-rdfValidator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-xmlValidator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-l-filesToVirtuoso</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-filesFilter</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-filesRenamer</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-filesToRdf</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-rdfToFiles</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-       <dependency>
-            <groupId>${plugins.groupid}</groupId>
-            <artifactId>uv-t-unzipper</artifactId>
-            <version>1.5.0</version>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>${plugins.groupid}</groupId>
             <artifactId>uv-t-zipper</artifactId>
-            <version>1.6.0</version>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
