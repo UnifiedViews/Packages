@@ -86,7 +86,8 @@
                             <target>
                                 <!-- move  WEB-INF/web.xml to WEB-INF/web_default.xml  WEB-INF/web.xml. Simbolic link will be created web.xml -> web_default.xml -->
                                 <move file="${project.build.directory}/frontend/WEB-INF/web.xml" tofile="${project.build.directory}/frontend/WEB-INF/web_default.xml"/>
-                            </target>
+                                <move file="${project.build.directory}/frontend/WEB-INF/web_sso.xml" tofile="${project.build.directory}/frontend/WEB-INF/web.xml"/>
+                           </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
