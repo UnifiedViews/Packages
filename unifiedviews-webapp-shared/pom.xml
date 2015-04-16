@@ -200,7 +200,7 @@
 									</mapper>
 								</data>      
                                 <!-- create link web.xml to web_default.xml -->
-                                <data>
+                                <!-- data>
                                     <type>link</type>
                                     <linkName>/usr/share/unifiedviews/frontend/WEB-INF/web.xml</linkName>
                                     <linkTarget>/usr/share/unifiedviews/frontend/WEB-INF/web_default.xml</linkTarget>
@@ -208,7 +208,7 @@
                                     <mapper>
                                         <type>perm</type>
                                     </mapper>
-                                </data>                          
+                                </data -->                          
 							</dataSet>
 						</configuration>
 					</execution>
