@@ -49,6 +49,7 @@
 										<prefix>/usr/share/unifiedviews/tomcat/bin</prefix>
 									</mapper>
 								</data>
+                            </dataSet>
 						</configuration>
 					</execution>
 				</executions>
