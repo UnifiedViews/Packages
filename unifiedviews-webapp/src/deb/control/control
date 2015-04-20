@@ -7,6 +7,4 @@ Architecture: all
 Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
 Depends:  unifiedviews-webapp-mysql (>> 1.6.0) | unifiedviews-webapp-pgsql (>> 1.6.0), unifiedviews-backend (>> 1.6.0)
-Replaces: lodms,  unifiedviews-webapp (<= 1.5.0-1)
-Breaks: unifiedviews-webapp (<= 1.5.0-1)
 Description: The tool uses data processing pipelines for obtaining, processing, and storing RDF data.

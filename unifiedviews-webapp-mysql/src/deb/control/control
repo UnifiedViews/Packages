@@ -8,6 +8,4 @@ Maintainer: jmc@eea.sk
 Homepage: https://github.com/UnifiedViews/Core
 Depends: unifiedviews-webapp-shared (>> 1.6.0), mysql-server,  debconf (>= 0.5)
 Conflicts: unifiedviews-backend-pgsql, unifiedviews-webapp-pgsql
-Breaks: unifiedviews-webapp (<= 1.5.0-1)
-Replaces: lodms,  unifiedviews-webapp (<= 1.5.0-1)
 Description: The mysql database and settings for unifiedviews's frontend.
