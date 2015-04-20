@@ -1,15 +1,15 @@
 #!/bin/bash
 
-URL="http://127.0.0.1:18080/master/api/1/import/dpu/jar"
-MASTER_USER=user
-MASTER_PASS=pass
+URL="http://127.0.0.1:28080/master/api/1/import/dpu/jar"
+MASTER_USER=master
+MASTER_PASS=commander
 
 echo "---------------------------------------------------------------------"
 echo "Installing DPUs.."
 echo "..target instance: $URL"
 echo "---------------------------------------------------------------------"
 
-function install_dpu() {
+install_dpu() {
     dpu_file=$(ls $1)
 
     echo -n "..installing $dpu_file: "
