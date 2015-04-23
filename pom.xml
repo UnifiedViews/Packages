@@ -31,4 +31,26 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
+        <build>
+            <plugins>
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m4.3</version>
+                <configuration>
+                    <flowInitContext>
+                        <!-- masterBranchName>odn/master</masterBranchName>
+                        <developBranchName>odn/develop</developBranchName>
+                        <featureBranchPrefix>feature-</featureBranchPrefix -->
+                        <releaseBranchPrefix>ODN_v</releaseBranchPrefix>
+                        <!-- hotfixBranchPrefix>hotfix-</hotfixBranchPrefix -->
+                        <versionTagPrefix>ODN_v</versionTagPrefix>
+                    </flowInitContext>
+                    <allowSnapshots>true</allowSnapshots>
+                    <noDeploy>true</noDeploy>
+                    <!-- see goals wiki page for configuration options -->
+                </configuration>
+            </plugin>
+                </plugins>
+    </build>
 </project>
