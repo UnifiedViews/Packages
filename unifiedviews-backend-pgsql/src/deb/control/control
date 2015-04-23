@@ -6,6 +6,4 @@ Architecture: all
 Maintainer: jmc@eea.sk
 Depends: unifiedviews-backend-shared (>> 1.6.0), postgresql, debconf (>= 0.5)
 Conflicts: unifiedviews-backend-mysql
-Replaces: unifiedviews-backend (<= 1.5.0-1)
-Breaks: unifiedviews-backend (<= 1.5.0-1)
 Description: The postgresql database and settings for unifiedviews's backend.
