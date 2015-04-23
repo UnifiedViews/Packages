@@ -33,46 +33,29 @@ set_java() {
     echo  " - ok"
  fi
 }
-
-
-prepare_dir() { 
-    mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews/backend
-    
-    mkdir -p /var/log/unifiedviews/backend
-    chown tomcat7:tomcat7 /var/log/unifiedviews /var/log/unifiedviews/backend
-
-    mkdir -p /var/lib/unifiedviews/backend/working
-    chown tomcat7:tomcat7  /var/lib/unifiedviews/backend  /var/lib/unifiedviews/backend/working
-
-    mkdir -p /var/lib/unifiedviews/target
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target /var/lib/unifiedviews/target
-
-    mkdir -p /var/lib/unifiedviews/target/
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/backend/working
-    
-    mkdir -p ~tomcat7/.eclipse
-    chown -R tomcat7:tomcat7 ~tomcat7/.eclipse
-
-    chown tomcat7:tomcat7 /usr/share/tomcat7
-    
-    mkdir -p /var/lib/unifiedviews/target/lib
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/lib
-    
-    mkdir -p /var/lib/unifiedviews/target/dpu
-    chown tomcat7:tomcat7 /var/lib/unifiedviews/target/dpu
-    
-    if [ -e "/var/www/dump/" ]; then
-        chown -R tomcat7:tomcat7 /var/www/dump/ 
-    fi
-    
+create_credentials() {
+  echo ">>> create_credentials"
+  if ! id unifiedviews > /dev/null 2>&1 ; then
+    adduser  --group  --system  --disabled-password --home /usr/share/unifiedviews unifiedviews
+  else 
+    echo "user: unifiedviews exists"
+  fi
+  echo "<<< create_credentials"
 }
 
+fix_perms() {
+    chown -R unifiedviews:unifiedviews /etc/unifiedviews
+    chown -R unifiedviews:unifiedviews /usr/share/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/log/unifiedviews
+    chown -R unifiedviews:unifiedviews /var/cache/unifiedviews
+	chown -R unifiedviews:unifiedviews /var/lib/unifiedviews
+}
 
 case "$1" in
   configure)
     set_java
-    prepare_dir
+    create_credentials
+    fix_perms
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

@@ -21,32 +21,11 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-   # backend jar and libs
-	if [ -d /usr/share/unifiedviews ] ; then 
-	    rm -rf /usr/share/unifiedviews
-	fi
 
-    # init script
-	if [ -h /etc/init.d/unifiedviews_backend ] ; then 
-	    rm -f /etc/init.d/unifiedviews_backend
-	fi
-	
-    # init script
-	if [ -h /usr/sbin/run_unifiedviews_backend ] ; then 
-	    rm -f /usr/sbin/run_unifiedviews_backend
-	fi
-    
-    # working dir
-    if [ -d /var/lib/unifiedviews/ ] ; then 
-	    rm -rf /var/lib/unifiedviews/
-	fi
     ;;
  
     purge)
-    # logs
-    if [ -d /var/log/unifiedviews ] ; then 
-	    rm -rf /var/log/unifiedviews
-	fi
+  
   
     ;;
     

@@ -21,21 +21,10 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-    if [ -d /var/lib/tomcat7/webapps/unifiedviews ] ; then 
-        rm -rf /var/lib/tomcat7/webapps/unifiedviews
-	fi
+        update-rc.d unifiedviews-frontend remove
     ;;
  
     purge)
-    # logs
-    if [ -d /var/log/unifiedviews/frontend ] ; then 
-	    rm -rf /var/log/unifiedviews/frontend
-	fi
-    
-    if [ -d  /usr/share/unifiedviews/webapp ] ; then
-        rm -rf /usr/share/unifiedviews/webapp
-     
-    fi
     ;;
 
     upgrade|failed-upgrade|abort-upgrade)

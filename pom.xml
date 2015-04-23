@@ -1,101 +1,55 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>cz.cuni.mff.xrg.odcs</groupId>
-    <artifactId>unifiedviews-packages</artifactId>
-    <packaging>pom</packaging>
-    <version>1.6.0</version>
-    <name>unifiedviews-packages</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modules>
-        <module>unifiedviews-mysql</module>
-        <module>unifiedviews-pgsql</module>
-        <module>unifiedviews-backend</module>
-        <module>unifiedviews-backend-mysql</module>
-        <module>unifiedviews-backend-pgsql</module>
-        <module>unifiedviews-backend-shared</module>
-        <module>unifiedviews-webapp</module>
-        <module>unifiedviews-webapp-mysql</module>
-        <module>unifiedviews-webapp-pgsql</module>
-        <module>unifiedviews-webapp-shared</module>
-    </modules>
+	<modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <backend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</backend-build>
-        <frontend-build>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</frontend-build>
-        <!-- set version in control file in debian package-->
-        <debian-package-version-suffix></debian-package-version-suffix>
-        <debian-package-version>${project.version}${debian-package-version-suffix}</debian-package-version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
+	<groupId>eu.unifiedviews.packages</groupId>
+	<artifactId>unifiedviews-packages</artifactId>
+	<version>2.0.1</version>
+	<name>unifiedviews-packages</name>
+	<packaging>pom</packaging>
+	<description />
 
+	<modules>
+		<module>unifiedviews-mysql</module>
+		<module>unifiedviews-pgsql</module>
+		<module>unifiedviews-backend</module>
+		<module>unifiedviews-backend-mysql</module>
+		<module>unifiedviews-backend-pgsql</module>
+		<module>unifiedviews-backend-shared</module>
+		<module>unifiedviews-webapp</module>
+		<module>unifiedviews-webapp-mysql</module>
+		<module>unifiedviews-webapp-pgsql</module>
+		<module>unifiedviews-webapp-shared</module>
+		<module>unifiedviews-plugins</module>
+	</modules>
 
-    <profiles>
-        <profile>
-            <id>snapshot</id>
-            <properties>
-                <!--read from comand line parameter: backend-snapshot-suffix -->
-                <!-- backend-snapshot-suffix is used in debian package's control file. The parameter Version has to be set without suffix SNAPSHOT,
-                because convetion of debian packages: unifiedviews-backend-1.5.1~rc${build_number}.deb  -->
-                <debian-package-version>${project.version}${debian-package-version-suffix}~${backend-snapshot-suffix}</debian-package-version>
-                <backend-build>${project.build.directory}/${project.artifactId}_${debian-package-version}_all.deb</backend-build>
-                <frontend-build>${project.build.directory}/${project.artifactId}_${debian-package-version}_all.deb</frontend-build>
-            </properties>
-        </profile>
-    </profiles>
+	<properties>
+		<debian-package-version>2.0.1~</debian-package-version>
+		<debian-package-name>${project.build.directory}/${project.artifactId}-${debian-package-version}_all.deb</debian-package-name>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
-    <build>
-        <plugins>
+        <build>
+            <plugins>
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/tmp</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>          
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>CHANGES_template.txt</include>
-                                    </includes>
-                                </resource>
-                            </resources>              
-                        </configuration>            
-                    </execution>
-                </executions>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m4.3</version>
+                <configuration>
+                    <flowInitContext>
+                        <!-- masterBranchName>odn/master</masterBranchName>
+                        <developBranchName>odn/develop</developBranchName>
+                        <featureBranchPrefix>feature-</featureBranchPrefix -->
+                        <releaseBranchPrefix>ODN_v</releaseBranchPrefix>
+                        <!-- hotfixBranchPrefix>hotfix-</hotfixBranchPrefix -->
+                        <versionTagPrefix>ODN_v</versionTagPrefix>
+                    </flowInitContext>
+                    <allowSnapshots>true</allowSnapshots>
+                    <noDeploy>true</noDeploy>
+                    <!-- see goals wiki page for configuration options -->
+                </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>rename-file</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>rename</goal>
-                        </goals>
-                        <configuration>
-                            <sourceFile>${basedir}/target/tmp/CHANGES_template.txt</sourceFile>
-                            <destinationFile>${basedir}/target/CHANGES.txt</destinationFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>    
-        </plugins>
-    </build>        
-
-
-
-
+                </plugins>
+    </build>
 </project>

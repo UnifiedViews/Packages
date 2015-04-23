@@ -1,0 +1,8 @@
+Package: unifiedviews-plugins
+Version: [[debian-package-version]]
+Section: java
+Priority: extra
+Architecture: all
+Maintainer: jmc@eea.sk
+Depends: curl, unifiedviews-webapp (>> 1.6.0)
+Description: UnifiedViews Plugins (DPUs).

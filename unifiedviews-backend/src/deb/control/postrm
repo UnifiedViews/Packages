@@ -21,23 +21,15 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-    # init script
-	if [ -h /etc/init.d/unifiedviews_backend ] ; then 
-	    rm -f /etc/init.d/unifiedviews_backend
-	fi
-	
-    # init script
-	if [ -h /usr/sbin/run_unifiedviews_backend ] ; then 
-	    rm -f /usr/sbin/run_unifiedviews_backend
-	fi
+    
+    update-rc.d unifiedviews-backend remove
+
     
     ;;
  
     purge)
     # logs
-    if [ -d /var/log/unifiedviews ] ; then 
-	    rm -rf /var/log/unifiedviews
-	fi
+   
   
     ;;
     
