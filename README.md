@@ -3,19 +3,26 @@ Packages
 
 Provides source for creating UnifiedViews packages for various Linux distributions.
 
-
-Till the package repository will be established use this
+How to install with dependency 
 
 ~~~bash
-dpkg -i  unifiedviews-backend_1.5.0_all.deb unifiedviews-webapp_1.5.0_all.deb
-#... some dependency errors
-apt-get install -f -y
+echo "deb http://packages.comsode.eu/debian wheezy main" > /etc/apt/sources.list.d/odn.list
+wget -O - http://packages.comsode.eu/key/odn.gpg.key | apt-key add -
+apt-get update
 ~~~
-How to uninstall with dependency 
+
+
+To install unifiedview using postgresql
 ~~~bash
- apt-get purge unifiedviews-webapp unifiedviews-backend
- apt-get autoremove 
+apt-get install unifiedviews-pgsql
 ~~~
+
+To install unifiedview using mysql
+~~~bash
+apt-get install unifiedviews-mysql
+~~~
+
+
 
 How to create .deb packages for Debian:
 
