@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>eu.unifiedviews.packages</groupId>
 		<artifactId>unifiedviews-packages</artifactId>
-		<version>2.0.2-SNAPSHOT</version>
+		<version>2.0.3-SNAPSHOT</version>
 	</parent>
 
 	<groupId>eu.unifiedviews.packages</groupId>
 	<artifactId>unifiedviews-webapp-pgsql</artifactId>
 	<name>unifiedviews-webapp-pgsql</name>
-	<version>2.0.2-SNAPSHOT</version>
+	<version>2.0.3-SNAPSHOT</version>
 	<description />
 
 	<build>
