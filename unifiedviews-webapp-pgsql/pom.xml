@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>eu.unifiedviews.packages</groupId>
 		<artifactId>unifiedviews-packages</artifactId>
-		<version>2.0.1</version>
+		<version>2.0.2</version>
 	</parent>
 
 	<groupId>eu.unifiedviews.packages</groupId>
 	<artifactId>unifiedviews-webapp-pgsql</artifactId>
 	<name>unifiedviews-webapp-pgsql</name>
-	<version>2.0.1</version>
+	<version>2.0.2</version>
 	<description />
 
 	<build>
@@ -48,7 +48,7 @@
 										<prefix>/usr/share/unifiedviews/tomcat/bin</prefix>
 									</mapper>
 								</data>
-                            </dataSet>
+							</dataSet>
 						</configuration>
 					</execution>
 				</executions>

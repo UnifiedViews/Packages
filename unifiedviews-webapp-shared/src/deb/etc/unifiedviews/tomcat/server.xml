@@ -72,7 +72,7 @@
         <Connector port="28080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                URIEncoding="UTF-8"
-               redirectPort="28443" />
+               redirectPort="28443" address="127.0.0.1" />
         <!-- A "Connector" using the shared thread pool-->
 
 
@@ -81,15 +81,15 @@
          connector should be using the OpenSSL style configuration
          described in the APR documentation -->
 
-        <Connector port="28443" protocol="org.apache.coyote.http11.Http11Protocol" SSLEnabled="true"
+       <!--   <Connector port="28443" protocol="org.apache.coyote.http11.Http11Protocol" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
-               keystoreFile="conf/.keystore" clientAuth="false" sslProtocol="TLS" />
+               keystoreFile="conf/.keystore" clientAuth="false" sslProtocol="TLS" />  -->
 
 
         <!-- Define an AJP 1.3 Connector on port 8009 -->
-        <!--
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="28443" />
-    -->
+       
+    <Connector port="28009" protocol="AJP/1.3" redirectPort="28443" />
+ 
 
 
         <!-- An Engine represents the entry point (within Catalina) that processes
