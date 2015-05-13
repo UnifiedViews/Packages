@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>eu.unifiedviews.packages</groupId>
 		<artifactId>unifiedviews-packages</artifactId>
-		<version>2.0.4-SNAPSHOT</version>
+		<version>2.0.5-SNAPSHOT</version>
 	</parent>
 
 	<groupId>eu.unifiedviews.packages</groupId>
 	<artifactId>unifiedviews-webapp-shared</artifactId>
 	<name>unifiedviews-webapp-shared</name>
-	<version>2.0.4-SNAPSHOT</version>
+	<version>2.0.5-SNAPSHOT</version>
 	<description />
 
 	<dependencies>
