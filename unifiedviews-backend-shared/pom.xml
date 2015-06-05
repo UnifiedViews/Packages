@@ -31,7 +31,7 @@
 	</repositories>
 
 	<build>
-		<finalName>unifiedviews-backend-${project.version}</finalName>
+		<finalName>unifiedviews-backend</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
