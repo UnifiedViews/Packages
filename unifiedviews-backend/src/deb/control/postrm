@@ -28,12 +28,9 @@ case "$1" in
     ;;
  
     purge)
-    # logs
    
   
     ;;
-    
-    # TODO drop database from mysql
 
     upgrade|failed-upgrade|abort-upgrade)
 
