@@ -90,10 +90,10 @@ db_configure() {
         su - postgres -c "createdb  -O ${usrname} ${dbname}" 
         
         su - postgres -c "psql  -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+        /usr/share/unifiedviews/pgsql/schema.sql
         
         su - postgres -c "psql  -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+        /usr/share/unifiedviews/pgsql/data.sql
               
         #su - postgres -c "psql -q -c \"GRANT ALL PRIVILEGES ON DATABASE ${dbname} TO  ${usrname}\"" 
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
@@ -106,7 +106,7 @@ db_configure() {
      then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/1.6.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+        /usr/share/unifiedviews/pgsql/1.6.0-update.sql
      fi
      
      
@@ -114,7 +114,7 @@ db_configure() {
          then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/2.0.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+        /usr/share/unifiedviews/pgsql/2.0.0-update.sql
      fi     
     
 
