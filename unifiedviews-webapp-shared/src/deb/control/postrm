@@ -25,6 +25,12 @@ case "$1" in
     ;;
  
     purge)
+        # delete uv-webapp directories
+        rm -rf /var/cache/unifiedviews
+        rm -rf /var/log/unifiedviews/frontend
+        rm -rf /usr/share/unifiedviews/webapp
+        rm -rf /var/tmp/unifiedviews
+        rm -rf /usr/share/unifiedviews/tomcat
     ;;
 
     upgrade|failed-upgrade|abort-upgrade)
