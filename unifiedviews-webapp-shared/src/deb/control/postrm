@@ -22,15 +22,16 @@ case "$1" in
 
     remove|abort-install|disappear)
         update-rc.d unifiedviews-frontend remove
-    ;;
- 
-    purge)
         # delete uv-webapp directories
         rm -rf /var/cache/unifiedviews
         rm -rf /var/log/unifiedviews/frontend
         rm -rf /usr/share/unifiedviews/webapp
         rm -rf /var/tmp/unifiedviews
         rm -rf /usr/share/unifiedviews/tomcat
+    ;;
+ 
+    purge)
+      
     ;;
 
     upgrade|failed-upgrade|abort-upgrade)
