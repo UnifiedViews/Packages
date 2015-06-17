@@ -21,14 +21,13 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-
-    ;;
- 
-    purge)
         echo "DROP DATABASE unifiedviews"
         # DROP DATABASE unifiedviews
         dbname=unifiedviews
         su - postgres -c "psql -q -c \"DROP DATABASE IF EXISTS ${dbname};\"" 
+    ;;
+ 
+    purge)
     ;;
         
     
