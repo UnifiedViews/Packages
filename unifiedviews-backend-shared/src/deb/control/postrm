@@ -21,14 +21,13 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-
-    ;;
- 
-    purge)
-        # purge directories
+        # remove directories
         rm -rf /usr/share/unifiedviews
         rm -rf /var/lib/unifiedviews
         rm -rf /var/log/unifiedviews
+    ;;
+ 
+    purge)
   
     ;;  
     upgrade|failed-upgrade|abort-upgrade)
