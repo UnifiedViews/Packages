@@ -25,6 +25,8 @@ case "$1" in
         rm -rf /usr/share/unifiedviews
         rm -rf /var/lib/unifiedviews
         rm -rf /var/log/unifiedviews
+        # delete user 
+        deluser unifiedviews || true
     ;;
  
     purge)
