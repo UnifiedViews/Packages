@@ -1,1 +1,1 @@
-CATALINA_OPTS=" -DconfigFileLocation=/etc/unifiedviews/frontend-config.properties"
+CATALINA_OPTS=" -DconfigFileLocation=/etc/unifiedviews/frontend-config.properties -Xmx512M"
