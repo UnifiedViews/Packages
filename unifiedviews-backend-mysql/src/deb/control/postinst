@@ -95,9 +95,6 @@ db_configure() {
         # create a user if not exists
         echo "create user $DBA_USER identified by '$ROOT_PW';" | mysql --password=$ROOT_PW || true
         echo "created user: $DBA_USER"
-        # set permissions for user uv
-        echo "grant all on $DB_NAME.* to '$DBA_USER' identified by '$DBA_PASS';"  | mysql --password=$ROOT_PW || true
-        echo "granted all on $DB_NAME for user: $DBA_USER"
       
         mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
         /usr/share/unifiedviews/mysql/schema.sql
@@ -137,7 +134,11 @@ db_configure() {
        /usr/share/unifiedviews/mysql/2.0.0-update.sql
     fi        
     
-    
+    # set permissions for user uv
+    echo "grant all on $DB_NAME.* to '$DBA_USER' identified by '$DBA_PASS';"  | mysql --password=$ROOT_PW || true
+    echo "granted all on $DB_NAME for user: $DBA_USER"
+
+   
     # update backend config
     sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
