@@ -93,8 +93,11 @@ db_configure() {
         /usr/share/unifiedviews/pgsql/schema.sql
         
         su - postgres -c "psql  -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/data.sql
-              
+        /usr/share/unifiedviews/pgsql/data-core.sql
+
+        su - postgres -c "psql  -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/data-permissions.sql
+
         #su - postgres -c "psql -q -c \"GRANT ALL PRIVILEGES ON DATABASE ${dbname} TO  ${usrname}\"" 
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
