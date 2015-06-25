@@ -138,7 +138,6 @@ db_configure() {
     echo "grant all on $DB_NAME.* to '$DBA_USER' identified by '$DBA_PASS';"  | mysql --password=$ROOT_PW || true
     echo "granted all on $DB_NAME for user: $DBA_USER"
 
-   
     # update backend config
     sed --in-place \
     -e "s/database.sql.hostname = .*/database.sql.hostname = $address_host/" \
