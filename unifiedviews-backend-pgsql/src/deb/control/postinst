@@ -79,7 +79,8 @@ db_configure() {
         then
         echo -n "INFO: Creating PostgreSQL user..."
         su - postgres -c "psql -q -c \"CREATE USER ${usrname} WITH PASSWORD '${DB_PASS}'\"" 
-        
+       echo "Done"
+    fi
 
         echo "Done"
     fi
