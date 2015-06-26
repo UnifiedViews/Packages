@@ -82,9 +82,16 @@ db_configure() {
        echo "Done"
     fi
 
-        echo "Done"
+    CHK_PG_ENCODE=$(su - postgres -c " psql template1 -t -c 'SHOW SERVER_ENCODING'")
+    ENCODING="UTF8"
+    if [ ! ${CHK_PG_ENCODE} = $ENCODING ]; then
+        echo "set encoding ${ENCODING} to template1"
+        su - postgres -c "psql -q -d template1 -c \"UPDATE pg_database SET datistemplate=FALSE WHERE datname='template1'  ;\""
+        su - postgres -c "psql -q -c \"DROP DATABASE IF EXISTS template1;\""
+        su - postgres -c "createdb  -O postgres template1 -T template0 -E $ENCODING;"
+        su - postgres -c "psql -q -d template1 -c \"UPDATE pg_database SET datistemplate=TRUE WHERE datname='template1'  ;\""
     fi
-  
+
     if [ ${CHK_PG_DB} -eq 0 ]
     then
         echo -n "INFO: Creating PostgreSQL database..."
