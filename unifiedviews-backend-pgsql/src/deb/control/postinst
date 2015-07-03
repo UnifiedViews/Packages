@@ -117,17 +117,28 @@ db_configure() {
      then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/1.6.0-update.sql
+        /usr/share/unifiedviews/pgsql/updates/1.6.0-update.sql
      fi
      
      
      if [ "$version" = "001.006.000" ]
-         then
+     then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/2.0.0-update.sql
+        /usr/share/unifiedviews/pgsql/updates/2.0.0-update.sql
      fi     
-    
+     
+    if [ "$version" = "002.000.000" ]
+    then
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/updates/2.1.0-core.sql
+        
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/updates/2.1.0-permissions.sql
+        
+     fi     
+     
+     
 
     # update backend config
     sed --in-place \
