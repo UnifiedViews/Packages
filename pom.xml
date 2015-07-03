@@ -41,7 +41,7 @@
 						<!-- masterBranchName>odn/master</masterBranchName>
 						<developBranchName>odn/develop</developBranchName>
 						<featureBranchPrefix>feature-</featureBranchPrefix -->
-						<releaseBranchPrefix>UV_v</releaseBranchPrefix>
+						<releaseBranchPrefix>release/UV_v</releaseBranchPrefix>
 						<!-- hotfixBranchPrefix>hotfix-</hotfixBranchPrefix -->
 						<versionTagPrefix>UV_v</versionTagPrefix>
 					</flowInitContext>
