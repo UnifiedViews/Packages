@@ -79,23 +79,33 @@ db_configure() {
         then
         echo -n "INFO: Creating PostgreSQL user..."
         su - postgres -c "psql -q -c \"CREATE USER ${usrname} WITH PASSWORD '${DB_PASS}'\"" 
-        
-
-        echo "Done"
+       echo "Done"
     fi
-  
+
+    CHK_PG_ENCODE=$(su - postgres -c " psql template1 -t -c 'SHOW SERVER_ENCODING'")
+    ENCODING="UTF8"
+    if [ ! ${CHK_PG_ENCODE} = $ENCODING ]; then
+        echo "set encoding ${ENCODING} to template1"
+        su - postgres -c "psql -q -d template1 -c \"UPDATE pg_database SET datistemplate=FALSE WHERE datname='template1'  ;\""
+        su - postgres -c "psql -q -c \"DROP DATABASE IF EXISTS template1;\""
+        su - postgres -c "createdb  -O postgres template1 -T template0 -E $ENCODING;"
+        su - postgres -c "psql -q -d template1 -c \"UPDATE pg_database SET datistemplate=TRUE WHERE datname='template1'  ;\""
+    fi
+
     if [ ${CHK_PG_DB} -eq 0 ]
     then
         echo -n "INFO: Creating PostgreSQL database..."
         su - postgres -c "createdb  -O ${usrname} ${dbname}" 
         
         su - postgres -c "psql  -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/schema.sql >> /var/log/unifiedviews/sql-install.log 2>&1
+        /usr/share/unifiedviews/pgsql/schema.sql
         
         su - postgres -c "psql  -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/data.sql >> /var/log/unifiedviews/sql-install.log 2>&1
-              
-        #su - postgres -c "psql -q -c \"GRANT ALL PRIVILEGES ON DATABASE ${dbname} TO  ${usrname}\"" 
+        /usr/share/unifiedviews/pgsql/data-core.sql
+
+        su - postgres -c "psql  -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/data-permissions.sql
+
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
         su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
         echo " Done" 
@@ -106,17 +116,30 @@ db_configure() {
      then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/1.6.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+        /usr/share/unifiedviews/pgsql/updates/1.6.0-update.sql
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
      fi
      
-     
      if [ "$version" = "001.006.000" ]
-         then
+     then
        # set db schema version
         su - postgres -c "psql -d ${dbname}" < \
-        /usr/share/unifiedviews/pgsql/2.0.0-update.sql  >> /var/log/unifiedviews/sql-install.log 2>&1       
+        /usr/share/unifiedviews/pgsql/updates/2.0.0-update.sql
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
+    fi     
+     
+    if [ "$version" = "002.000.000" ]
+    then
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/updates/2.1.0-core.sql
+        
+        su - postgres -c "psql -d ${dbname}" < \
+        /usr/share/unifiedviews/pgsql/updates/2.1.0-permissions.sql
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${usrname};\"" 
+        su - postgres -c "psql -q -d ${dbname} -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${usrname};\"" 
      fi     
-    
 
     # update backend config
     sed --in-place \

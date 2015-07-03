@@ -21,16 +21,17 @@ set -e
 case "$1" in
 
     remove|abort-install|disappear)
-
+        # remove directories
+        rm -rf /usr/share/unifiedviews
+        rm -rf /var/lib/unifiedviews
+        rm -rf /var/log/unifiedviews
+        # delete user 
+        deluser unifiedviews || true
     ;;
  
     purge)
   
-  
-    ;;
-    
-    # TODO drop database from mysql
-
+    ;;  
     upgrade|failed-upgrade|abort-upgrade)
 
     ;;

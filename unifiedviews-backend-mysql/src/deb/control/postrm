@@ -18,22 +18,38 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+. /usr/share/debconf/confmodule
+
+db_creadentials(){
+    echo " >>> db_creadentials"
+    db_get backend/mysql_root
+    ROOT_PW=$RET
+
+    db_get backend/mysql_db_user
+    DBA_USER=$RET
+
+    db_get backend/mysql_db_password
+    DBA_PASS=$RET
+    echo " <<< db_creadentials"
+}
+
+
 case "$1" in
 
     remove|abort-install|disappear)
-        update-rc.d unifiedviews-frontend remove
-        # delete uv-webapp directories
-        rm -rf /var/cache/unifiedviews
-        rm -rf /var/log/unifiedviews/frontend
-        rm -rf /usr/share/unifiedviews/webapp
-        rm -rf /var/tmp/unifiedviews
-        rm -rf /usr/share/unifiedviews/tomcat
+        db_creadentials
+        echo "DROP DATABASE unifiedviews"
+        # DROP DATABASE unifiedviews
+        dbname=unifiedviews
+        mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "DROP DATABASE IF EXISTS ${dbname}" 
+        db_stop
     ;;
  
     purge)
       
     ;;
-
+        
+    
     upgrade|failed-upgrade|abort-upgrade)
 
     ;;
