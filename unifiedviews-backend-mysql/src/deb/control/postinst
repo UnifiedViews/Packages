@@ -133,6 +133,14 @@ db_configure() {
        mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
        /usr/share/unifiedviews/mysql/2.0.0-update.sql
     fi        
+
+    version=`mysql -u $DBA_USER --password=$DBA_PASS -s -N -e "select value from properties WHERE properties.key='UV.Core.version' " $DB_NAME`
+    if [ "$version" = "002.000.000" ]
+    then
+       # set db schema version
+       mysql -u $DBA_USER --password=$DBA_PASS $DB_NAME < \
+       /usr/share/unifiedviews/mysql/2.1.0-update.sql
+    fi   
     
     # set permissions for user uv
     echo "grant all on $DB_NAME.* to '$DBA_USER' identified by '$DBA_PASS';"  | mysql --password=$ROOT_PW || true
