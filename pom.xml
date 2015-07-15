@@ -20,7 +20,6 @@
 		<module>unifiedviews-webapp-mysql</module>
 		<module>unifiedviews-webapp-pgsql</module>
 		<module>unifiedviews-webapp-shared</module>
-		<module>unifiedviews-plugins</module>
 	</modules>
 
 	<properties>
