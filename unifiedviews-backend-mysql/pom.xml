@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>eu.unifiedviews.packages</groupId>
 		<artifactId>unifiedviews-packages</artifactId>
-		<version>2.1.2-SNAPSHOT</version>
+		<version>2.1.2</version>
 	</parent>
 
 	<groupId>eu.unifiedviews.packages</groupId>
 	<artifactId>unifiedviews-backend-mysql</artifactId>
 	<name>unifiedviews-backend-mysql</name>
-	<version>2.1.2-SNAPSHOT</version>
+	<version>2.1.2</version>
 	<description />
 
 	<dependencies>

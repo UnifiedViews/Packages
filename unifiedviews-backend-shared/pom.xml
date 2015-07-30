@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>eu.unifiedviews.packages</groupId>
 		<artifactId>unifiedviews-packages</artifactId>
-		<version>2.1.2-SNAPSHOT</version>
+		<version>2.1.2</version>
 	</parent>
 
 	<groupId>eu.unifiedviews.packages</groupId>
 	<artifactId>unifiedviews-backend-shared</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
+	<version>2.1.2</version>
 	<name>unifiedviews-backend-shared</name>
 	<description />
 
