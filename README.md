@@ -1,15 +1,12 @@
 Packages
 ========
 
+Please see [UnifiedViews installation guide](https://grips.semantic-web.at/display/UDDOC/Installation+Guide)
+
+**Note: This repository is deprecated. Debian packages are maintained as part of UnifiedViews/Core+Plugins repository**
+
 Provides source for creating UnifiedViews packages for various Linux distributions.
 
-How to install with dependency 
-
-~~~bash
-echo "deb http://packages.comsode.eu/debian wheezy main" > /etc/apt/sources.list.d/odn.list
-wget -O - http://packages.comsode.eu/key/odn.gpg.key | apt-key add -
-apt-get update
-~~~
 
 
 To install unifiedview using postgresql
